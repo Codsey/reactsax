@@ -1,0 +1,11 @@
+.rs-button {
+  --rs-color: var(--rs-primary);
+  --rs-color-rotate: var(--rs-primary);
+  --rs-color-darken: var(--rs-primary);
+
+  // component vars
+  --rs-button-padding: 8px 12px;
+  --rs-button-margin: 5px;
+  --rs-button-border-radius: 12px;
+  --rs-button-text-color: #fff;
+}
