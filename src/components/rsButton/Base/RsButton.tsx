@@ -28,6 +28,7 @@ interface RsButtonProps {
   floating?: boolean;
   animate?: JSX.Element;
   rippleProp?: string;
+  [x: string]: any;
 }
 
 const RsButton = ({ ...props }: RsButtonProps) => {
@@ -56,7 +57,8 @@ const RsButton = ({ ...props }: RsButtonProps) => {
     shadow,
     floating,
     animate,
-    rippleProp
+    rippleProp,
+    ...rest
   } = props;
   const buttonClasses = classnames(
     'rs-button',
@@ -131,6 +133,7 @@ const RsButton = ({ ...props }: RsButtonProps) => {
           '--rs-color': setComponentColor(color || componentColor || 'primary')
         } as CSSProperties
       }
+      {...rest}
     >
       <div className='rs-button__content'>{children}</div>
       {loading ? <div className='rs-button__loading'> </div> : null}

@@ -1,0 +1,39 @@
+@import '../../../styles/mixins';
+@import '../../../styles/colors';
+
+.rs-button-group {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  .rs-button {
+    margin: 0px;
+  }
+
+  .rs-button:not(:last-of-type):not(:first-of-type) {
+    border-radius: 0px;
+    border: 0px;
+
+    &.rs-button--border {
+      &:before {
+        border-left: 0px;
+        width: 100%;
+      }
+
+      + .rs-button--border:not(:last-of-type) {
+        &:before {
+          border-right: 0px;
+          width: calc(100%);
+        }
+      }
+    }
+  }
+
+  .rs-button:last-of-type {
+    border-radius: 0px 12px 12px 0px;
+  }
+
+  .rs-button:first-of-type {
+    border-radius: 12px 0px 0px 12px;
+  }
+}
