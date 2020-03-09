@@ -32,16 +32,21 @@ class App extends React.Component<any, any> {
           <div style={{ textAlign: 'left' }}>
             <Alert
               title='Reactsax Framework'
-              footer='this is footer'
               color='warn'
-              closable={() => this.setState({ active: false })}
               active={this.state.active}
-              pagination={[
-                'Reactsax is a UI framework created by Codsey ',
-                'I love Bares',
-                'Bares loves me'
-              ]}
-            ></Alert>
+              closable={() => this.setState({ active: !this.state.active })}
+            >
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit. In tempus
+              massa ac ante aliquam efficitur. Curabitur molestie bibendum
+              convallis. Duis leo nisi, consectetur quis lectus non, placerat
+              consequat nunc. Duis scelerisque, enim non auctor rhoncus, risus
+              urna mollis quam, non ornare est libero quis velit. Mauris
+              condimentum finibus massa non consectetur. Phasellus sed felis id
+              sapien ullamcorper viverra nec vitae dui. Etiam non nisl accumsan,
+              vulputate augue sit amet, efficitur leo. Vestibulum efficitur sem
+              magna, ornare ullamcorper massa laoreet non. Mauris et libero
+              maximus, rutrum tortor nec, fringilla turpis.
+            </Alert>
           </div>
         </header>
       </div>

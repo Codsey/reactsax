@@ -14,7 +14,6 @@ class RsAlert extends React.Component<any, any> {
     this.handleClickNextPage = this.handleClickNextPage.bind(this);
     this.handleClickPrevPage = this.handleClickPrevPage.bind(this);
     this.state = {
-      hiddenContent: true,
       page: 0,
       totalPages: 0
     };
@@ -22,13 +21,21 @@ class RsAlert extends React.Component<any, any> {
     this.contentRef = React.createRef();
   }
 
+  // TODO: WRITE DRY CODE HERE PLEASE.
+
   componentDidMount() {
-    if (this.alertRef && this.contentRef) {
+    if (this.alertRef && this.contentRef && this.props.active) {
       setTimeout(() => {
         const el = this.alertRef.current;
         el.style.height = el.scrollHeight - 1 + 'px';
         const content = this.contentRef.current;
         content.style.minHeight = content.scrollHeight + 'px';
+      }, 0);
+    } else if (typeof this.props.hiddenContent === 'boolean') {
+      setTimeout(() => {
+        const content = this.contentRef.current;
+        content.style.minHeight = 0 + 'px';
+        content.style.height = content.scrollHeight - 1 + 'px';
       }, 0);
     }
 
@@ -62,7 +69,6 @@ class RsAlert extends React.Component<any, any> {
 
   enter(el: any) {
     let h = el.scrollHeight;
-    console.log(h);
     el.style.height = h - 1 + 'px';
   }
 
@@ -79,9 +85,11 @@ class RsAlert extends React.Component<any, any> {
       footer,
       children,
       closable,
+      hiddenContent = null,
+      toggleHiddenContent,
       pagination
     } = this.props;
-    const { hiddenContent, page, totalPages } = this.state;
+    const { page, totalPages } = this.state;
     const alertClasses = classnames(
       'rs-alert',
       { 'rs-alert--solid': solid },
@@ -98,7 +106,7 @@ class RsAlert extends React.Component<any, any> {
       <Transition
         component={'span'}
         in={active}
-        timeout={9999}
+        timeout={500}
         onEnter={e => this.beforeEnter(e)}
         onEntering={e => this.enter(e)}
         onExit={e => this.leave(e)}
@@ -113,10 +121,13 @@ class RsAlert extends React.Component<any, any> {
           }
         >
           <React.Fragment>
-            <div className={titleClasses}>
+            <div className={titleClasses} onClick={toggleHiddenContent}>
               {title}
-              {!closable && !hiddenContent ? (
-                <RsPlusMinusIcon less={!hiddenContent} />
+              {!closable ? (
+                <RsPlusMinusIcon
+                  onClick={toggleHiddenContent}
+                  less={!hiddenContent}
+                />
               ) : null}
             </div>
             {closable ? (
@@ -125,11 +136,20 @@ class RsAlert extends React.Component<any, any> {
                 <RsIconClose hover='less' />
               </button>
             ) : null}
-            <div className='rs-alert__content' ref={this.contentRef}>
-              <div className='rs-alert__content__text'>
-                {pagination ? pagination[page - 1] : children}
+            <Transition
+              component={'span'}
+              in={!hiddenContent}
+              timeout={500}
+              onEnter={e => this.beforeEnter(e)}
+              onEntering={e => this.enter(e)}
+              onExit={e => this.leave(e)}
+            >
+              <div className='rs-alert__content' ref={this.contentRef}>
+                <div className='rs-alert__content__text'>
+                  {pagination ? pagination[page - 1] : children}
+                </div>
               </div>
-            </div>
+            </Transition>
             {footer ? <div className='rs-alert__footer'>{footer}</div> : null}
             {pagination ? (
               <div className='rs-alert__pagination'>
