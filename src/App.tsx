@@ -23,7 +23,7 @@ class App extends React.Component<any, any> {
     this.setState({ active: true });
     setTimeout(() => {
       this.setState({ active: false });
-    }, 3000);
+    }, 2000);
   }
 
   render() {
@@ -32,14 +32,17 @@ class App extends React.Component<any, any> {
         <header className='App-header'>
           <img src={logo} className='App-logo' alt='logo' />
           <img src={reactsax} className='reactsax-logo' alt='logo' />
-          <Button onClick={this.handleOpenLoading} color='warn'>
+          <Button id='btn' onClick={this.handleOpenLoading} color='warn'>
+            <Loading
+              isVisible={this.state.active}
+              target
+              scale='0.6'
+              background='warn'
+              color='#fff'
+              opacity='1'
+            />
             {this.state.active ? 'Click to hide' : 'Click to show'}
           </Button>
-          <Loading
-            isVisible={this.state.active}
-            type='circles'
-            color='#FFD700'
-          />
         </header>
       </div>
     );

@@ -13,7 +13,8 @@ const RsLoading = ({ ...props }) => {
     scale,
     text,
     percent,
-    progress
+    progress,
+    opacity
   } = props;
 
   const visibleClasses = classnames(
@@ -31,13 +32,14 @@ const RsLoading = ({ ...props }) => {
           style={
             {
               '--rs-color': setComponentColor(color || 'primary'),
-              '--rs-background': setComponentColor(background)
+              '--rs-background': setComponentColor(background),
+              '--rs-opacity': opacity
             } as React.CSSProperties
           }
         >
           <div
             className='rs-loading__load'
-            style={{ transform: `scale(${{ scale }})` }}
+            style={{ transform: `scale(${scale})` }}
           >
             <div className='rs-loading__load__animation'>
               <div className='rs-loading__load__percent'> {percent}</div>
@@ -51,7 +53,7 @@ const RsLoading = ({ ...props }) => {
             <div className='rs-loading__progress'>
               <div
                 className='rs-loading__progress__bar'
-                style={{ width: `${progress}` }}
+                style={{ width: `${progress}%` }}
               ></div>
             </div>
           ) : null}
