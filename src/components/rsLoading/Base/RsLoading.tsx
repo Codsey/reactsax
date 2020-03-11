@@ -3,7 +3,20 @@ import classnames from 'classnames';
 import './RsLoading.styles.scss';
 import { setComponentColor } from '../../../util';
 
-const RsLoading = ({ ...props }) => {
+interface RsLoadingProps {
+  isVisible?: boolean;
+  type?: string;
+  target?: boolean;
+  color?: string;
+  background?: string | null;
+  scale?: string | number;
+  text?: string;
+  percent?: string | number;
+  progress?: string | number;
+  opacity?: string | number;
+}
+
+const RsLoading = ({ ...props }: RsLoadingProps) => {
   const {
     isVisible,
     type,
@@ -32,7 +45,9 @@ const RsLoading = ({ ...props }) => {
           style={
             {
               '--rs-color': setComponentColor(color || 'primary'),
-              '--rs-background': setComponentColor(background),
+              '--rs-background': background
+                ? setComponentColor(background)
+                : null,
               '--rs-opacity': opacity
             } as React.CSSProperties
           }
