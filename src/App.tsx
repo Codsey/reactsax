@@ -8,8 +8,8 @@ import './styles/reactsax.scss';
 // import Alert from './components/rsAlert/Base/rsAlert';
 // import Loading from './components/rsLoading/Base/RsLoading';
 // import Button from './components/rsButton/Base/RsButton';
-
-import Input from './components/rsInput/Base/RsInput';
+// import Input from './components/rsInput/Base/RsInput';
+import Checkbox from './components/rsCheckbox/Base/RsCheckbox';
 setDarkMode();
 
 class App extends React.Component<any, any> {
@@ -17,7 +17,7 @@ class App extends React.Component<any, any> {
     super(props);
     this.handleOpenLoading = this.handleOpenLoading.bind(this);
     this.state = {
-      active: false,
+      active: true,
       input: ''
     };
   }
@@ -38,14 +38,9 @@ class App extends React.Component<any, any> {
             <img src={reactsax} className='reactsax-logo' alt='logo' />
           </div>
           <div className='center'>
-            <Input
-              placeholder='Input'
-              color='#FDD700'
-              icon={<i className='bx bx-user'></i>}
-              onChange={(e: any) => this.setState({ input: e.target.value })}
-              value={this.state.input}
-              shadow
-            />
+            <Checkbox color='danger'>Option</Checkbox>
+            <Checkbox color='danger'>Option</Checkbox>
+            <Checkbox color='danger'>Option</Checkbox>
           </div>
         </header>
       </div>

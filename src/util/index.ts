@@ -155,6 +155,12 @@ const setComponentColor = (color: string) => {
   }
 };
 
+let lastId = 0;
+const generateID = (prefix = 'id') => {
+  lastId++;
+  return `${prefix}${lastId}`;
+};
+
 const insertBody = (element: HTMLElement, parent: any) => {
   const target = parent ? parent : document.body;
   target.insertBefore(element, target.lastChild);
@@ -277,5 +283,6 @@ export {
   setCords,
   setCordsPosition,
   setComponentColor,
-  setDarkMode
+  setDarkMode,
+  generateID
 };
