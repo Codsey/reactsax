@@ -63,7 +63,7 @@ const RsInput = ({ ...props }: RsInputProps) => {
   );
 
   const placeholderClasses = classnames('rs-input__label', {
-    'rs-input__label--hidden': value !== ''
+    'rs-input__label--hidden': value !== '' || props.value !== ''
   });
 
   const labelClasses = classnames(
@@ -71,7 +71,10 @@ const RsInput = ({ ...props }: RsInputProps) => {
     { 'rs-input__label--placeholder': labelPlaceholder },
     {
       'rs-input__label--hidden':
-        value !== '' || type === 'date' || type === 'time'
+        value !== '' ||
+        (props.value && props.value !== '') ||
+        type === 'date' ||
+        type === 'time'
     },
     { 'rs-input__label--label': label }
   );

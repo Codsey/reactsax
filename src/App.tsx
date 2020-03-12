@@ -33,17 +33,17 @@ class App extends React.Component<any, any> {
     return (
       <div className='App'>
         <header className='App-header'>
-          <img src={logo} className='App-logo' alt='logo' />
-          <img src={reactsax} className='reactsax-logo' alt='logo' />
+          <div style={{ paddingTop: '40px' }}>
+            <img src={logo} className='App-logo' alt='logo' />
+            <img src={reactsax} className='reactsax-logo' alt='logo' />
+          </div>
           <div className='center'>
             <Input
-              labelPlaceholder='Input'
+              placeholder='Input'
               color='#FDD700'
               icon={<i className='bx bx-user'></i>}
-              iconAfter
               onChange={(e: any) => this.setState({ input: e.target.value })}
               value={this.state.input}
-              type='search'
               shadow
             />
           </div>
