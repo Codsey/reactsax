@@ -9,7 +9,8 @@ import './styles/reactsax.scss';
 // import Loading from './components/rsLoading/Base/RsLoading';
 // import Button from './components/rsButton/Base/RsButton';
 // import Input from './components/rsInput/Base/RsInput';
-import Checkbox from './components/rsCheckbox/Base/RsCheckbox';
+// import Checkbox from './components/rsCheckbox/Base/RsCheckbox';
+import Switch from './components/rsSwitch/Base/RsSwitch';
 setDarkMode();
 
 class App extends React.Component<any, any> {
@@ -38,9 +39,7 @@ class App extends React.Component<any, any> {
             <img src={reactsax} className='reactsax-logo' alt='logo' />
           </div>
           <div className='center'>
-            <Checkbox color='danger'>Option</Checkbox>
-            <Checkbox color='danger'>Option</Checkbox>
-            <Checkbox color='danger'>Option</Checkbox>
+            <Switch color='success' square />
           </div>
         </header>
       </div>
