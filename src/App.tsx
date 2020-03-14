@@ -11,8 +11,7 @@ import './styles/reactsax.scss';
 // import Input from './components/rsInput/Base/RsInput';
 // import Checkbox from './components/rsCheckbox/Base/RsCheckbox';
 // import Switch from './components/rsSwitch/Base/RsSwitch';
-import Select from './components/rsSelect/Base/RsSelect';
-import Option from './components/rsSelect/Option/RsOption';
+import Avatar from './components/rsAvatar/Base/RsAvatar';
 setDarkMode();
 
 class App extends React.Component<any, any> {
@@ -41,17 +40,24 @@ class App extends React.Component<any, any> {
             <img src={reactsax} className='reactsax-logo' alt='logo' />
           </div>
           <div className='center'>
-            <Select placeholder='placeholder'>
-              <Option>Hello</Option>
-              <Option>Hello</Option>
-              <Option>Hello</Option>
-              <Option>Hello</Option>
-              <Option>Hello</Option>
-              <Option>Hello</Option>
-              <Option>Hello</Option>
-              <Option>Hello</Option>
-              <Option>Hello</Option>
-            </Select>
+            <div className='pad'>
+              <Avatar> Moe</Avatar>
+            </div>
+            <div className='pad'>
+              <Avatar loading>
+                {' '}
+                <img
+                  src='https://api.adorable.io/avatars/109/abott@adorable.png'
+                  alt='avatar'
+                />
+              </Avatar>
+            </div>
+            <div className='pad'>
+              <Avatar color='danger' loading>
+                {' '}
+                Baro
+              </Avatar>
+            </div>
           </div>
         </header>
       </div>
