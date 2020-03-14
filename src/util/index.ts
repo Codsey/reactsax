@@ -173,6 +173,7 @@ const removeBody = (element: HTMLElement, parent: any) => {
 
 const setCords = (element: any, parent: any) => {
   const cords = parent.getBoundingClientRect();
+  console.log(cords);
   const x = cords.x;
   const y = cords.y;
   const w = cords.width;
@@ -183,13 +184,14 @@ const setCords = (element: any, parent: any) => {
   const rootTop = scrollTop + window.innerHeight;
 
   if (rootTop - elTop < 30) {
-    // console.log('hola mundo')
+    // console.log('hola mundo');
     style.top = `${y + scrollTop - element.clientHeight - 4}px`;
     style.left = `${x}px`;
     style.width = `${w}px`;
     element.classList.add('top');
     parent.classList.add('top');
   } else {
+    console.log('ha');
     style.top = `${y + scrollTop + h - 4}px`;
     style.left = `${x}px`;
     style.width = `${w}px`;
