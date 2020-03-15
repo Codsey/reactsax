@@ -12,6 +12,7 @@ import './styles/reactsax.scss';
 // import Checkbox from './components/rsCheckbox/Base/RsCheckbox';
 // import Switch from './components/rsSwitch/Base/RsSwitch';
 import Avatar from './components/rsAvatar/Base/RsAvatar';
+import AvatarGroup from './components/rsAvatar/Group/RsAvatarGroup';
 setDarkMode();
 
 class App extends React.Component<any, any> {
@@ -40,24 +41,31 @@ class App extends React.Component<any, any> {
             <img src={reactsax} className='reactsax-logo' alt='logo' />
           </div>
           <div className='center'>
-            <div className='pad'>
-              <Avatar> Moe</Avatar>
-            </div>
-            <div className='pad'>
-              <Avatar loading>
-                {' '}
+            <AvatarGroup max='3'>
+              <Avatar>
                 <img
                   src='https://api.adorable.io/avatars/109/abott@adorable.png'
                   alt='avatar'
                 />
               </Avatar>
-            </div>
-            <div className='pad'>
-              <Avatar color='danger' loading>
+              <Avatar>
                 {' '}
-                Baro
+                <img
+                  src='https://api.adorable.io/avatars/285/can@adorable.io.png'
+                  alt='avatar'
+                />
               </Avatar>
-            </div>
+              <Avatar>
+                {' '}
+                <img
+                  src='https://api.adorable.io/avatars/285/ash@adorable.io.png'
+                  alt='avatar'
+                />
+              </Avatar>
+              <Avatar color='danger' text='A' />
+              <Avatar color='danger' text='A' />
+              <Avatar color='danger' text='A' />
+            </AvatarGroup>
           </div>
         </header>
       </div>

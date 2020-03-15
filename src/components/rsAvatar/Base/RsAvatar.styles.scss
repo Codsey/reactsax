@@ -224,7 +224,7 @@
     height: 13px;
     background: rs-color('badge');
     border-radius: 50%;
-    border: 2px solid rs-color('background');
+    // border: 2px solid rs-color('background');
     right: -4px;
     bottom: -4px;
     font-size: 0.6rem;
@@ -351,5 +351,15 @@
 
   100% {
     opacity: 1;
+  }
+}
+
+@keyframes rotateInputLoading {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }
