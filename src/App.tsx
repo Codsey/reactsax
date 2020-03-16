@@ -7,12 +7,14 @@ import './styles/reactsax.scss';
 
 // import Alert from './components/rsAlert/Base/rsAlert';
 // import Loading from './components/rsLoading/Base/RsLoading';
-// import Button from './components/rsButton/Base/RsButton';
+import Button from './components/rsButton/Base/RsButton';
 // import Input from './components/rsInput/Base/RsInput';
 // import Checkbox from './components/rsCheckbox/Base/RsCheckbox';
 // import Switch from './components/rsSwitch/Base/RsSwitch';
-import Avatar from './components/rsAvatar/Base/RsAvatar';
-import AvatarGroup from './components/rsAvatar/Group/RsAvatarGroup';
+// import Avatar from './components/rsAvatar/Base/RsAvatar';
+// import AvatarGroup from './components/rsAvatar/Group/RsAvatarGroup';
+import Notification from './components/rsNotification/Base/RsNotification';
+import NotificationFunc from './components/rsNotification/Base/RsNotificationFunction';
 setDarkMode();
 
 class App extends React.Component<any, any> {
@@ -20,7 +22,8 @@ class App extends React.Component<any, any> {
     super(props);
     this.handleOpenLoading = this.handleOpenLoading.bind(this);
     this.state = {
-      active: true,
+      active: false,
+      active2: false,
       input: ''
     };
   }
@@ -41,31 +44,22 @@ class App extends React.Component<any, any> {
             <img src={reactsax} className='reactsax-logo' alt='logo' />
           </div>
           <div className='center'>
-            <AvatarGroup max='3'>
-              <Avatar>
-                <img
-                  src='https://api.adorable.io/avatars/109/abott@adorable.png'
-                  alt='avatar'
-                />
-              </Avatar>
-              <Avatar>
-                {' '}
-                <img
-                  src='https://api.adorable.io/avatars/285/can@adorable.io.png'
-                  alt='avatar'
-                />
-              </Avatar>
-              <Avatar>
-                {' '}
-                <img
-                  src='https://api.adorable.io/avatars/285/ash@adorable.io.png'
-                  alt='avatar'
-                />
-              </Avatar>
-              <Avatar color='danger' text='A' />
-              <Avatar color='danger' text='A' />
-              <Avatar color='danger' text='A' />
-            </AvatarGroup>
+            <Button onClick={() => NotificationFunc({})}>
+              {' '}
+              Click to notify
+            </Button>
+            <Notification
+              title={'Reactsax Notification'}
+              text='Hello'
+              closeButton
+              isVisible={this.state.active}
+            ></Notification>
+            <Notification
+              title={'Reactsax Notification'}
+              text='Hello this is Reactsax Notification'
+              closeButton
+              isVisible={this.state.active2}
+            ></Notification>
           </div>
         </header>
       </div>
