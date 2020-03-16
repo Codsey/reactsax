@@ -1,34 +1,47 @@
 import React from 'react';
 import RsNotification from './RsNotification';
 import ReactDOM from 'react-dom';
-const Notification = (params: any) => {
-  //   const [isVisible, setVisible] = useState(false);
 
+interface NotificationParams {
+  title?: string;
+  text?: string;
+  position?: string;
+  color?: string;
+  border?: string;
+  icon?: string;
+  duration?: number | string;
+  onClick?: any;
+  buttonClose?: boolean;
+  flat?: boolean;
+  onDestroy?: any;
+  sticky?: boolean;
+  square?: boolean;
+  width?: string;
+  loading?: boolean;
+  progress?: any;
+  notPadding?: any;
+  content?: any;
+  clickClose?: boolean;
+  classNotification?: string;
+}
+const Notification = (params: NotificationParams) => {
   const notification = (
     <RsNotification
-      title={'Reactsax Notification'}
-      loading
-      text='👉 Hello, I have been working on a really hard research and I came to a conclusion that Baro is Gay'
+      title={params.title}
+      text={params.text}
+      loading={params.loading}
+      border={params.border}
+      icon={params.icon}
+      flat={params.flat}
+      sticky={params.sticky}
+      square={params.square}
+      width={params.width}
+      notpadding={params.notPadding}
+      progress={params.progress}
       closeButton
-      notificationPosition='top-left'
+      notificationPosition={params.position}
     ></RsNotification>
   );
-
-  //   const children = document.querySelector(
-  //     `.rs-notification-parent--${params.position || 'bottom-right'}`
-  //   )?.childNodes;
-  //   const allChilds = Array.prototype.slice.call(children);
-
-  //   const test = allChilds.map(child => child.innerHTML);
-
-  //   const parent = React.createElement(
-  //     'div',
-  //     {
-  //       className: `.rs-notification-parent--${params.position || 'bottom-right'}`
-  //     },
-
-  //     notification
-  //   );
 
   if (!document.querySelector('.notification-container')) {
     const container = document.createElement('div');
@@ -43,26 +56,6 @@ const Notification = (params: any) => {
 
   const container = document.querySelector('.notification-container');
   document.body.removeChild(container as Element);
-
-  //   const parent: HTMLElement =
-  //     document.querySelector(
-  //       `.rs-notification-parent--${params.position || 'bottom-right'}`
-  //     ) || document.createElement('div');
-
-  //   if (
-  //     !document.querySelector(
-  //       `.rs-notification-parent--${params.position || 'bottom-right'}`
-  //     )
-  //   ) {
-  //     parent.className = 'rs-notification-parent';
-  //     parent.classList.add(
-  //       `rs-notification-parent--${params.position || 'bottom-right'}`
-  //     );
-  //   }
-
-  //   if (params.classNotification) {
-  //     parent.classList.add(params.classNotification);
-  //   }
 };
 
 export default Notification;

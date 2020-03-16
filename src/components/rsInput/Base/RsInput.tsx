@@ -38,6 +38,7 @@ const RsInput = ({ ...props }: RsInputProps) => {
     progress = 0,
     messageType,
     message,
+    onChange,
     ...rest
   } = props;
 
@@ -107,8 +108,12 @@ const RsInput = ({ ...props }: RsInputProps) => {
       <div className={inputContentClasses}>
         <input
           className={inputClasses}
-          onChange={e => setValue(e.target.value)}
+          onChange={e => {
+            setValue(e.target.value);
+            onChange(e);
+          }}
           type={type}
+          value={value}
           {...rest}
         />
         {label ? (

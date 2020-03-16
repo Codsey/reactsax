@@ -7,7 +7,6 @@ import { CSSTransition } from 'react-transition-group';
 const RsNotification = ({ ...props }) => {
   const notificationRef: React.RefObject<any> = React.createRef();
   const [isVisible, setVisible] = useState(false);
-  const [closeTrigger, setCloseTrigger] = useState(true);
   const {
     color,
     border,
@@ -21,7 +20,6 @@ const RsNotification = ({ ...props }) => {
     notPadding,
     colorName,
     classNotification,
-    // isVisible,
     notificationPosition,
     title,
     text,
@@ -45,21 +43,33 @@ const RsNotification = ({ ...props }) => {
         `rs-notification-parent--${notificationPosition || 'bottom-right'}`
       );
     }
-    // console.log(notificationRef.current);
     if (notificationRef.current) {
       parent.appendChild(notificationRef.current);
       document.body.appendChild(parent);
     }
     setVisible(true);
+    // setTimeout(() => {
+    //   if (notificationRef.current) {
+    //     destroy();
+    //   }
+    // }, 4000);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [notificationPosition, notificationRef]);
 
   const destroy = () => {
-    // setCloseTrigger(false);
+    notificationRef.current.classList.add(
+      'notification-leave-active',
+      'notification-leave-to'
+    );
     const parent = notificationRef.current.parentNode;
-    if (parent.childNodes.length === 0) {
-      document.body.removeChild(parent);
+    if (parent.childNodes.length === 1) {
+      return setTimeout(() => {
+        document.body.removeChild(parent);
+      }, 500);
     }
-    parent.removeChild(notificationRef.current);
+    setTimeout(() => {
+      parent.removeChild(notificationRef.current);
+    }, 500);
   };
 
   const beforeEnter = (el: any) => {
@@ -75,23 +85,6 @@ const RsNotification = ({ ...props }) => {
     } else {
       el.style.padding = `20px`;
     }
-  };
-
-  const leave = (el: any) => {
-    //   const parent = this.$el.parentNode;
-    //   setTimeout(() => {
-    //     done();
-    //     if (parent.childNodes.length == 1) {
-    //       document.body.removeChild(parent);
-    //     }
-    //     parent.removeChild(this.$el);
-    //     this.$destroy();
-    //     if (this.onDestroy) {
-    //       this.onDestroy();
-    //     }
-    //   }, 250);
-    console.log(el);
-    // destroy();
   };
 
   const notificatinClasses = classnames(
@@ -121,10 +114,8 @@ const RsNotification = ({ ...props }) => {
       unmountOnExit
       classNames={{
         enter: 'notification-enter',
-        enterActive: 'notification-enter-active',
-        exit: 'notification-leave-to'
+        enterActive: 'notification-enter-active'
       }}
-      //   onExited={leave}
     >
       {isVisible ? (
         <div className={notificatinClasses} ref={notificationRef}>
