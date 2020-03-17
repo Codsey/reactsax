@@ -55,9 +55,15 @@ class App extends React.Component<any, any> {
             <Button
               onClick={() =>
                 NotificationFunc({
-                  title: 'Hello This is Reactsax Notification',
-                  text: 'Welcome to Reactsax Notification',
-                  position: this.state.position
+                  title: 'Reactsax Notification',
+                  text: 'I love you Potato Community',
+                  position: this.state.position,
+                  color: 'primary',
+                  duration: '10',
+                  icon: <i className='bx bxl-discord'></i>,
+                  border: 'danger',
+                  flat: true,
+                  sticky: true
                 })
               }
             >

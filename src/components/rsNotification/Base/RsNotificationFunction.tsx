@@ -8,7 +8,7 @@ interface NotificationParams {
   position?: string;
   color?: string;
   border?: string;
-  icon?: string;
+  icon?: string | JSX.Element;
   duration?: number | string;
   onClick?: any;
   buttonClose?: boolean;
@@ -18,7 +18,6 @@ interface NotificationParams {
   square?: boolean;
   width?: string;
   loading?: boolean;
-  progress?: any;
   notPadding?: any;
   content?: any;
   clickClose?: boolean;
@@ -37,7 +36,8 @@ const Notification = (params: NotificationParams) => {
       square={params.square}
       width={params.width}
       notpadding={params.notPadding}
-      progress={params.progress}
+      color={params.color}
+      duration={params.duration}
       closeButton
       notificationPosition={params.position}
     ></RsNotification>

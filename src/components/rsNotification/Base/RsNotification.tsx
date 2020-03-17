@@ -3,10 +3,12 @@ import classnames from 'classnames';
 import './RsNotification.styles.scss';
 import RsIconClose from '../../../icons/close';
 import { CSSTransition } from 'react-transition-group';
+import { setComponentColor } from '../../../util/index';
 
 const RsNotification = ({ ...props }) => {
   const notificationRef: React.RefObject<any> = React.createRef();
   const [isVisible, setVisible] = useState(false);
+
   const {
     color,
     border,
@@ -24,7 +26,7 @@ const RsNotification = ({ ...props }) => {
     title,
     text,
     closeButton,
-    progress
+    duration
   } = props;
 
   useEffect(() => {
@@ -48,13 +50,15 @@ const RsNotification = ({ ...props }) => {
       document.body.appendChild(parent);
     }
     setVisible(true);
-    // setTimeout(() => {
-    //   if (notificationRef.current) {
-    //     destroy();
-    //   }
-    // }, 4000);
+    if (!sticky) {
+      setTimeout(() => {
+        if (notificationRef.current) {
+          destroy();
+        }
+      }, duration * 1000 || 4000);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [notificationPosition, notificationRef]);
+  }, [notificationRef]);
 
   const destroy = () => {
     notificationRef.current.classList.add(
@@ -103,7 +107,6 @@ const RsNotification = ({ ...props }) => {
     [`rs-notification--${colorName}`],
     classNotification
   );
-
   return (
     <CSSTransition
       timeout={100}
@@ -118,7 +121,16 @@ const RsNotification = ({ ...props }) => {
       }}
     >
       {isVisible ? (
-        <div className={notificatinClasses} ref={notificationRef}>
+        <div
+          className={notificatinClasses}
+          ref={notificationRef}
+          style={
+            {
+              '--rs-color': setComponentColor(color || ''),
+              '--rs-border': setComponentColor(border || '')
+            } as React.CSSProperties
+          }
+        >
           {!loading && icon ? (
             <div className='rs-notification__icon'>{icon}</div>
           ) : null}
@@ -145,12 +157,6 @@ const RsNotification = ({ ...props }) => {
             </button>
           ) : null}
           {loading ? <div className='rs-notification__loading'> </div> : null}
-          <div
-            className='rs-notification__progress'
-            style={{ width: `${progress}%` }}
-          >
-            {' '}
-          </div>
         </div>
       ) : (
         <React.Fragment />
