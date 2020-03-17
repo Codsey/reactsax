@@ -78,7 +78,7 @@ const RsNotification = ({ ...props }: RsNotificationProps) => {
       }, duration * 1000 || 4000);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [notificationRef]);
+  }, [notificationRef, notificationPosition]);
 
   const destroy = () => {
     notificationRef.current.classList.add(
@@ -131,7 +131,7 @@ const RsNotification = ({ ...props }: RsNotificationProps) => {
       timeout={100}
       in={isVisible}
       onEnter={beforeEnter}
-      onEntering={enter}
+      onEntered={enter}
       mountOnEnter
       unmountOnExit
       classNames={{

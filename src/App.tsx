@@ -72,7 +72,8 @@ class App extends React.Component<any, any> {
                         I LOVE COOKIES
                       </Button>
                     </div>
-                  )
+                  ),
+                  position: 'bottom-left'
                 })
               }
             >

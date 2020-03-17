@@ -37,7 +37,7 @@ const Notification = (params: NotificationParams) => {
     width,
     notPadding,
     color,
-    duration = 4000,
+    duration = 4,
     position
   } = params;
   const notification = (
