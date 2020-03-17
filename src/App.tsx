@@ -56,23 +56,8 @@ class App extends React.Component<any, any> {
             <Button
               onClick={() =>
                 NotificationFunc({
-                  content: (
-                    <div className='component'>
-                      <img
-                        src={Cookie}
-                        alt={'cookie-img'}
-                        className='cookie-logo'
-                      />
-                      <h3>COOKIE !</h3>
-                      <p>
-                        We use cookies to make your experience on this website
-                        better.
-                      </p>
-                      <Button block color='dark'>
-                        I LOVE COOKIES
-                      </Button>
-                    </div>
-                  ),
+                  title: 'Reactsax Notification',
+                  text: 'Potato Community. I love you!',
                   position: 'bottom-left'
                 })
               }

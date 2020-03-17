@@ -28,7 +28,7 @@ interface RsNotificationProps {
 const RsNotification = ({ ...props }: RsNotificationProps) => {
   const notificationRef: React.RefObject<any> = React.createRef();
   const [isVisible, setVisible] = useState(false);
-
+  const destroyTimer: any = React.useRef(false);
   const {
     color,
     border,
@@ -71,7 +71,7 @@ const RsNotification = ({ ...props }: RsNotificationProps) => {
     }
     setVisible(true);
     if (!sticky) {
-      setTimeout(() => {
+      destroyTimer.current = setTimeout(() => {
         if (notificationRef.current) {
           destroy();
         }
@@ -94,6 +94,27 @@ const RsNotification = ({ ...props }: RsNotificationProps) => {
     setTimeout(() => {
       parent.removeChild(notificationRef.current);
     }, 500);
+  };
+
+  const forceDestroy = () => {
+    notificationRef.current.classList.add(
+      'notification-leave-active',
+      'notification-leave-to'
+    );
+  };
+
+  const handleMouseEnter = () => {
+    if (!sticky) {
+      clearTimeout(destroyTimer.current);
+    }
+  };
+
+  const handleMouseLeave = () => {
+    if (!sticky) {
+      destroyTimer.current = setTimeout(() => {
+        destroy();
+      }, duration * 1000 || 4000);
+    }
   };
 
   const beforeEnter = (el: any) => {
@@ -149,6 +170,8 @@ const RsNotification = ({ ...props }: RsNotificationProps) => {
               '--rs-border': setComponentColor(border || '')
             } as React.CSSProperties
           }
+          onMouseEnter={() => handleMouseEnter()}
+          onMouseLeave={() => handleMouseLeave()}
         >
           {!loading && icon ? (
             <div className='rs-notification__icon'>{icon}</div>
@@ -177,7 +200,7 @@ const RsNotification = ({ ...props }: RsNotificationProps) => {
           {closeButton ? (
             <button
               className='rs-notification__close'
-              onClick={() => destroy()}
+              onClick={() => forceDestroy()}
             >
               <RsIconClose hover='less' />{' '}
             </button>
