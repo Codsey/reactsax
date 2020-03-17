@@ -9,7 +9,7 @@ interface NotificationParams {
   color?: string;
   border?: string;
   icon?: string | JSX.Element;
-  duration?: number | string;
+  duration?: number;
   onClick?: any;
   buttonClose?: boolean;
   flat?: boolean;
@@ -24,22 +24,39 @@ interface NotificationParams {
   classNotification?: string;
 }
 const Notification = (params: NotificationParams) => {
+  const {
+    title,
+    text,
+    content,
+    loading,
+    border,
+    icon,
+    flat,
+    sticky,
+    square,
+    width,
+    notPadding,
+    color,
+    duration = 4000,
+    position
+  } = params;
   const notification = (
     <RsNotification
-      title={params.title}
-      text={params.text}
-      loading={params.loading}
-      border={params.border}
-      icon={params.icon}
-      flat={params.flat}
-      sticky={params.sticky}
-      square={params.square}
-      width={params.width}
-      notpadding={params.notPadding}
-      color={params.color}
-      duration={params.duration}
+      title={title}
+      text={text}
+      content={content}
+      loading={loading}
+      border={border}
+      icon={icon}
+      flat={flat}
+      sticky={sticky}
+      square={square}
+      width={width}
+      notPadding={notPadding}
+      color={color}
+      duration={duration}
       closeButton
-      notificationPosition={params.position}
+      notificationPosition={position}
     ></RsNotification>
   );
 

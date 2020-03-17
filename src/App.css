@@ -20,6 +20,18 @@
   flex-wrap: wrap;
 }
 
+.component {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+}
+
+.cookie-logo {
+  max-width: 100px;
+}
+
 .pad {
   margin: 10px;
 }

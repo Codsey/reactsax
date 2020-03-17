@@ -5,7 +5,27 @@ import RsIconClose from '../../../icons/close';
 import { CSSTransition } from 'react-transition-group';
 import { setComponentColor } from '../../../util/index';
 
-const RsNotification = ({ ...props }) => {
+interface RsNotificationProps {
+  title?: string;
+  text?: string;
+  notificationPosition?: string;
+  color?: string;
+  border?: string;
+  icon?: string | JSX.Element;
+  duration: number;
+  onClick?: any;
+  closeButton?: boolean;
+  flat?: boolean;
+  sticky?: boolean;
+  square?: boolean;
+  width?: string;
+  loading?: boolean;
+  notPadding?: any;
+  content?: any;
+  classNotification?: string;
+}
+
+const RsNotification = ({ ...props }: RsNotificationProps) => {
   const notificationRef: React.RefObject<any> = React.createRef();
   const [isVisible, setVisible] = useState(false);
 
@@ -20,13 +40,13 @@ const RsNotification = ({ ...props }) => {
     width,
     loading,
     notPadding,
-    colorName,
     classNotification,
     notificationPosition,
     title,
     text,
     closeButton,
-    duration
+    duration,
+    content
   } = props;
 
   useEffect(() => {
@@ -104,7 +124,6 @@ const RsNotification = ({ ...props }) => {
     { 'rs-notification--width-auto': width === 'auto' },
     { 'rs-notification--loading': loading },
     { 'rs-notification--notPadding': notPadding },
-    [`rs-notification--${colorName}`],
     classNotification
   );
   return (
@@ -134,7 +153,7 @@ const RsNotification = ({ ...props }) => {
           {!loading && icon ? (
             <div className='rs-notification__icon'>{icon}</div>
           ) : null}
-          {!loading ? (
+          {!loading && !content ? (
             <div className='rs-notification__content'>
               {title ? (
                 <div className='rs-notification__content__header'>
@@ -146,6 +165,13 @@ const RsNotification = ({ ...props }) => {
                   <p>{text}</p>
                 </div>
               ) : null}
+            </div>
+          ) : null}
+          {!loading && content ? (
+            <div className='rs-notification__content'>
+              <div className='rs-notification__content__header'>{title}</div>
+              <div className='rs-notification__content__text'>{text}</div>
+              {content}
             </div>
           ) : null}
           {closeButton ? (

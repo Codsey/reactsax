@@ -5,6 +5,7 @@ import './App.css';
 import { setDarkMode } from './util/index';
 import './styles/reactsax.scss';
 
+import Cookie from './cookie.svg';
 // import Alert from './components/rsAlert/Base/rsAlert';
 // import Loading from './components/rsLoading/Base/RsLoading';
 import Button from './components/rsButton/Base/RsButton';
@@ -55,15 +56,23 @@ class App extends React.Component<any, any> {
             <Button
               onClick={() =>
                 NotificationFunc({
-                  title: 'Reactsax Notification',
-                  text: 'I love you Potato Community',
-                  position: this.state.position,
-                  color: 'primary',
-                  duration: '10',
-                  icon: <i className='bx bxl-discord'></i>,
-                  border: 'danger',
-                  flat: true,
-                  sticky: true
+                  content: (
+                    <div className='component'>
+                      <img
+                        src={Cookie}
+                        alt={'cookie-img'}
+                        className='cookie-logo'
+                      />
+                      <h3>COOKIE !</h3>
+                      <p>
+                        We use cookies to make your experience on this website
+                        better.
+                      </p>
+                      <Button block color='dark'>
+                        I LOVE COOKIES
+                      </Button>
+                    </div>
+                  )
                 })
               }
             >
