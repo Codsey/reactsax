@@ -274,6 +274,7 @@ const setCordsPosition = (element: any, parent: any, position: string) => {
 
 const setDarkMode = () => {
   document.body.setAttribute('rs-theme', 'dark');
+  document.body.classList.add('darken');
 };
 
 export {

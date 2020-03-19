@@ -7,7 +7,7 @@ import './styles/reactsax.scss';
 
 // import Alert from './components/rsAlert/Base/rsAlert';
 // import Loading from './components/rsLoading/Base/RsLoading';
-// import Button from './components/rsButton/Base/RsButton';
+import Button from './components/rsButton/Base/RsButton';
 // import Input from './components/rsInput/Base/RsInput';
 // import Checkbox from './components/rsCheckbox/Base/RsCheckbox';
 // import Switch from './components/rsSwitch/Base/RsSwitch';
@@ -15,7 +15,8 @@ import './styles/reactsax.scss';
 // import AvatarGroup from './components/rsAvatar/Group/RsAvatarGroup';
 // import Notification from './components/rsNotification/Base/RsNotification';
 // import NotificationFunc from './components/rsNotification/Base/RsNotificationFunction';
-import Radio from './components/rsRadio/Base/RsRadio';
+// import Radio from './components/rsRadio/Base/RsRadio';
+import Tooltip from './components/rsTooltip/Base/RsTooltip';
 setDarkMode();
 
 class App extends React.Component<any, any> {
@@ -48,44 +49,18 @@ class App extends React.Component<any, any> {
             <img src={reactsax} className='reactsax-logo' alt='logo' />
           </div>
           <div className='center'>
-            <Radio
-              active={this.state.active}
-              onChange={this.handleChange}
-              label='Option 1'
-              value='1'
-            />
-          </div>
-          <div className='center'>
-            <Radio
-              active={this.state.active}
-              onChange={this.handleChange}
-              label='Option 2'
-              value='2'
-            />
-          </div>
-          <div className='center'>
-            <Radio
-              active={this.state.active}
-              onChange={this.handleChange}
-              label='Option 3'
-              value='3'
-            />
-          </div>
-          <div className='center'>
-            <Radio
-              active={this.state.active}
-              onChange={this.handleChange}
-              label='Option 4'
-              value='4'
-            />
-          </div>
-          <div className='center'>
-            <Radio
-              active={this.state.active}
-              onChange={this.handleChange}
-              label='Option 5'
-              value='6'
-            />
+            <Tooltip tooltip='Hello'>
+              <Button flat>Top</Button>
+            </Tooltip>
+            <Tooltip right tooltip='Hello' color='primary'>
+              <Button flat>Right</Button>
+            </Tooltip>
+            <Tooltip bottom tooltip='Hello' color='danger'>
+              <Button flat>Bottom</Button>
+            </Tooltip>
+            <Tooltip left tooltip='Hello' color='success'>
+              <Button flat>Left</Button>
+            </Tooltip>
           </div>
         </header>
       </div>
