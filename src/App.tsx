@@ -17,6 +17,8 @@ import Button from './components/rsButton/Base/RsButton';
 // import NotificationFunc from './components/rsNotification/Base/RsNotificationFunction';
 // import Radio from './components/rsRadio/Base/RsRadio';
 import Tooltip from './components/rsTooltip/Base/RsTooltip';
+import ToolTipTest from './components/rsTooltip/Base/RsTooltipTest';
+
 setDarkMode();
 
 class App extends React.Component<any, any> {
@@ -49,18 +51,9 @@ class App extends React.Component<any, any> {
             <img src={reactsax} className='reactsax-logo' alt='logo' />
           </div>
           <div className='center'>
-            <Tooltip tooltip='Hello'>
+            <ToolTipTest tooltip='Hello'>
               <Button flat>Top</Button>
-            </Tooltip>
-            <Tooltip right tooltip='Hello' color='primary'>
-              <Button flat>Right</Button>
-            </Tooltip>
-            <Tooltip bottom tooltip='Hello' color='danger'>
-              <Button flat>Bottom</Button>
-            </Tooltip>
-            <Tooltip left tooltip='Hello' color='success'>
-              <Button flat>Left</Button>
-            </Tooltip>
+            </ToolTipTest>
           </div>
         </header>
       </div>

@@ -6,6 +6,7 @@ import './RsTooltip.styles.scss';
 
 const RsTooltip = ({ ...props }) => {
   const [activeTooltip, setActiveTooltip] = useState(false);
+  const [isHoverTooltip, setIsHoverTooltip] = useState(false);
 
   const tooltipRef: React.RefObject<any> = React.createRef();
   const tooltipContent: React.RefObject<any> = React.createRef();
@@ -23,7 +24,9 @@ const RsTooltip = ({ ...props }) => {
     border,
     borderThick,
     loading,
-    color
+    color,
+    notHover,
+    interactivity
   } = props;
 
   useEffect(() => {
@@ -72,7 +75,7 @@ const RsTooltip = ({ ...props }) => {
       setTimeout(() => {
         parent.insertBefore(tooltipRef.current, parent.lastChild);
         setActiveTooltip(false);
-      }, 100);
+      }, 250);
     }
   };
 
@@ -94,7 +97,11 @@ const RsTooltip = ({ ...props }) => {
     <div
       className='rs-tooltip-content'
       ref={tooltipContent}
-      onMouseEnter={() => handleMouseEnter()}
+      onMouseEnter={() => {
+        if (!notHover) {
+          handleMouseEnter();
+        }
+      }}
       onMouseLeave={() => handleMouseLeave()}
     >
       <CSSTransition
@@ -118,8 +125,15 @@ const RsTooltip = ({ ...props }) => {
                 '--rs-color': setComponentColor(color || '')
               } as React.CSSProperties
             }
-            // onMouseEnter={() => handleMouseEnter()}
-            // onMouseLeave={() => handleMouseLeave()}
+            // onMouseEnter={() => {
+            //   if (interactivity) {
+            //     setActiveTooltip(true);
+            //     handleMouseEnter();
+            //   }
+            // }}
+            // onMouseLeave={() => {
+            //   handleMouseLeave();
+            // }}
           >
             {tooltip}
             {loading ? <div className='rs-tooltip__loading'></div> : null}
