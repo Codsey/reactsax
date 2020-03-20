@@ -1,10 +1,28 @@
 import React, { useEffect, useState } from 'react';
 import classnames from 'classnames';
-import { CSSTransition } from 'react-transition-group';
-import { setCordsPosition, setComponentColor } from '../../../util/index';
+import { setComponentColor, setTooltipCords } from '../../../util/index';
 import './RsTooltip.styles.scss';
+import ReactDOM from 'react-dom';
 
-const RsTooltip = ({ ...props }) => {
+interface RsTooltipProps {
+  tooltip: JSX.Element | string;
+  children: JSX.Element;
+  bottom?: boolean;
+  left?: boolean;
+  right?: boolean;
+  shadow?: boolean;
+  notArrow?: boolean;
+  square?: boolean;
+  circle?: boolean;
+  border?: boolean;
+  borderThick?: boolean;
+  loading?: boolean;
+  color?: string;
+  notHover?: boolean;
+  interactivity?: boolean;
+}
+
+const RsTooltip = ({ ...props }: RsTooltipProps) => {
   const [activeTooltip, setActiveTooltip] = useState(false);
   const [isHoverTooltip, setIsHoverTooltip] = useState(false);
 
@@ -30,23 +48,6 @@ const RsTooltip = ({ ...props }) => {
   } = props;
 
   useEffect(() => {
-    const handleResize = () => {
-      let position = 'top';
-      if (bottom) {
-        position = 'bottom';
-      } else if (left) {
-        position = 'left';
-      } else if (right) {
-        position = 'right';
-      }
-      const tooltip = tooltipRef.current;
-      if (!tooltip) {
-        return;
-      }
-      setCordsPosition(tooltip, tooltipContent.current, position);
-    };
-
-    window.addEventListener('resize', handleResize);
     let position = 'top';
     if (bottom) {
       position = 'bottom';
@@ -56,27 +57,27 @@ const RsTooltip = ({ ...props }) => {
       position = 'right';
     }
     if (tooltipRef.current) {
-      const parent = document.body;
-      setCordsPosition(tooltipRef.current, tooltipContent.current, position);
-      parent.insertBefore(tooltipRef.current, parent.lastChild);
+      tooltipRef.current.classList.add('rs-tooltip-enter');
+      setTooltipCords(tooltipRef.current, tooltipContent.current, position);
+      setTimeout(() => {
+        if (tooltipRef.current) {
+          tooltipRef.current.classList.remove('rs-tooltip-enter');
+        }
+      }, 30);
     }
-
-    return () => window.removeEventListener('resize', handleResize);
-  }, [activeTooltip, tooltipRef, tooltipContent, bottom, left, right]);
+  }, [tooltipRef, tooltipContent, bottom, left, right]);
 
   const handleMouseEnter = () => {
     setActiveTooltip(true);
   };
 
   const handleMouseLeave = () => {
-    const parent = tooltipContent.current;
-    if (parent && tooltipRef.current) {
+    if (tooltipRef.current) {
       tooltipRef.current.classList.add('rs-tooltip-leave-to');
-      setTimeout(() => {
-        parent.insertBefore(tooltipRef.current, parent.lastChild);
-        setActiveTooltip(false);
-      }, 250);
     }
+    setTimeout(() => {
+      setActiveTooltip(false);
+    }, 150);
   };
 
   const tooltipClasses = classnames(
@@ -97,26 +98,27 @@ const RsTooltip = ({ ...props }) => {
     <div
       className='rs-tooltip-content'
       ref={tooltipContent}
-      onMouseEnter={() => {
+      onMouseEnter={e => {
         if (!notHover) {
           handleMouseEnter();
         }
       }}
-      onMouseLeave={() => handleMouseLeave()}
+      onMouseLeave={() => {
+        if (!notHover) {
+          if (interactivity) {
+            setTimeout(() => {
+              if (!isHoverTooltip) {
+                handleMouseLeave();
+              }
+            }, 250);
+          } else {
+            handleMouseLeave();
+          }
+        }
+      }}
     >
-      <CSSTransition
-        timeout={100}
-        in={activeTooltip}
-        // unmountOnExit
-        // mountOnEnter
-        classNames={{
-          enter: 'rs-tooltip-enter',
-          enterActive: 'rs-tooltip-enter-active',
-          exit: 'rs-tooltip-leave-to',
-          exitActive: 'rs-tooltip-leave-active'
-        }}
-      >
-        {activeTooltip ? (
+      {activeTooltip ? (
+        ReactDOM.createPortal(
           <div
             className={tooltipClasses}
             ref={tooltipRef}
@@ -125,23 +127,25 @@ const RsTooltip = ({ ...props }) => {
                 '--rs-color': setComponentColor(color || '')
               } as React.CSSProperties
             }
-            // onMouseEnter={() => {
-            //   if (interactivity) {
-            //     setActiveTooltip(true);
-            //     handleMouseEnter();
-            //   }
-            // }}
-            // onMouseLeave={() => {
-            //   handleMouseLeave();
-            // }}
+            onMouseEnter={() => {
+              if (interactivity) {
+                setIsHoverTooltip(true);
+                handleMouseEnter();
+              }
+            }}
+            onMouseLeave={() => {
+              setIsHoverTooltip(false);
+              handleMouseLeave();
+            }}
           >
             {tooltip}
             {loading ? <div className='rs-tooltip__loading'></div> : null}
-          </div>
-        ) : (
-          <React.Fragment />
-        )}
-      </CSSTransition>
+          </div>,
+          document.body
+        )
+      ) : (
+        <React.Fragment />
+      )}
       {children}
     </div>
   );
