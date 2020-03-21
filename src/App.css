@@ -33,46 +33,15 @@
   margin-top: 10px;
 }
 
-.rs-input {
-  width: 100% !important;
-  margin: 5px !important;
+.cherno {
+  display: block;
+  position: relative;
+  border-radius: inherit;
+  max-width: 650px;
 }
 
-.flex {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-top: 5px;
-}
-.flex a {
-  font-size: 0.8rem;
-  opacity: 0.7;
-}
-
-.footer-dialog {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  width: calc(100%);
-}
-.footer-dialog .new {
-  margin: 0px;
-  margin-top: 20px;
-  padding: 0px;
-  font-size: 0.7rem;
-}
-.footer-dialog .new a {
-  margin-left: 6px;
-  text-decoration: none;
-}
-
-.cookie-logo {
-  max-width: 100px;
-}
-
-.pad {
-  margin: 10px;
+.inh {
+  border-radius: inherit;
 }
 
 @media (prefers-reduced-motion: no-preference) {

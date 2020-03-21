@@ -5,8 +5,28 @@ import './RsModal.styles.scss';
 import { CSSTransition } from 'react-transition-group';
 import ReactDOM from 'react-dom';
 
-const RsModal = ({ ...props }) => {
+interface RsModalProps {
+  active?: boolean;
+  blur?: boolean;
+  fullScreen?: boolean;
+  notPadding?: boolean;
+  square?: boolean;
+  autoWidth?: boolean;
+  scroll?: boolean;
+  loading?: boolean;
+  notCenter?: boolean;
+  notClose?: boolean;
+  overflowHidden?: boolean;
+  header?: string | JSX.Element;
+  children?: string | JSX.Element;
+  footer?: string | JSX.Element;
+  preventClose?: boolean;
+  handleClose?: () => void;
+}
+
+const RsModal = ({ ...props }: RsModalProps) => {
   const [rebound, setRebound] = useState(false);
+  const dialogRef: React.RefObject<any> = React.createRef();
   const {
     active,
     blur,
@@ -18,12 +38,41 @@ const RsModal = ({ ...props }) => {
     loading,
     notCenter,
     notClose,
+    overflowHidden,
     header,
     children,
     footer,
     preventClose,
     handleClose
   } = props;
+
+  useEffect(() => {
+    window.addEventListener('keydown', handleEsc);
+    if (overflowHidden && active) document.body.style.overflow = 'hidden';
+
+    return () => window.removeEventListener('keydown', handleEsc);
+  });
+
+  const handleEsc = (e: any) => {
+    if (e.which === 27 && !preventClose) {
+      handleInternalClose(dialogRef.current);
+    }
+  };
+
+  const handleInternalClose = (el: Element) => {
+    if (el) {
+      el.classList.add('rs-dialog-leave-active');
+      el.classList.add('rs-dialog-leave-to');
+      setTimeout(() => {
+        if (handleClose) {
+          if (overflowHidden) {
+            document.body.style.overflow = '';
+          }
+          handleClose();
+        }
+      }, 100);
+    }
+  };
 
   const dialogContentClasses = classnames(
     'rs-dialog-content',
@@ -47,16 +96,6 @@ const RsModal = ({ ...props }) => {
     notFooter: !footer
   });
 
-  const handleInternalClose = (e: any) => {
-    // console.log(e.target);
-
-    const el = e.target;
-    el.classList.add('rs-dialog-leave-active');
-    el.classList.add('rs-dialog-leave-to');
-    setTimeout(() => {
-      handleClose();
-    }, 100);
-  };
   return (
     <CSSTransition
       timeout={300}
@@ -64,7 +103,6 @@ const RsModal = ({ ...props }) => {
       mountOnEnter
       unmountOnExit
       classNames={{
-        // enter: 'rs-dialog-enter',
         enterActive: 'rs-dialog-enter-active'
       }}
     >
@@ -73,9 +111,10 @@ const RsModal = ({ ...props }) => {
           ReactDOM.createPortal(
             <div
               className={dialogContentClasses}
+              ref={dialogRef}
               onClick={(e: any) => {
                 if (!e.target.closest('.rs-dialog') && !preventClose) {
-                  handleInternalClose(e);
+                  handleInternalClose(dialogRef.current);
                 }
 
                 if (preventClose && !e.target.closest('.rs-dialog')) {
@@ -95,7 +134,7 @@ const RsModal = ({ ...props }) => {
                 {!notClose ? (
                   <button
                     className='rs-dialog__close'
-                    onClick={handleInternalClose}
+                    onClick={() => handleInternalClose(dialogRef.current)}
                   >
                     <RsIconClose hover='x' />
                   </button>

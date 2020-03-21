@@ -5,6 +5,18 @@ body {
   color: #fff;
 }
 
+::-webkit-scrollbar {
+  width: 5px;
+  height: 5px;
+  display: block;
+  background: #1e2023;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #fff;
+  border-radius: 5px;
+}
+
 body,
 button,
 input {
