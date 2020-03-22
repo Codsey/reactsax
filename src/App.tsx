@@ -4,11 +4,12 @@ import reactsax from './reactsax.png';
 import './App.css';
 import { setDarkMode } from './util/index';
 import './styles/reactsax.scss';
-import Cherno from './cherno.jpg';
+
+// import Cherno from './cherno.jpg';
 // import Alert from './components/rsAlert/Base/rsAlert';
 // import Loading from './components/rsLoading/Base/RsLoading';
-import Button from './components/rsButton/Base/RsButton';
-// import Input from './components/rsInput/Base/RsInput';
+// import Button from './components/rsButton/Base/RsButton';
+// import Input from './components/rsInput/Base/RsInput';+
 // import Checkbox from './components/rsCheckbox/Base/RsCheckbox';
 // import Switch from './components/rsSwitch/Base/RsSwitch';
 // import Avatar from './components/rsAvatar/Base/RsAvatar';
@@ -17,7 +18,8 @@ import Button from './components/rsButton/Base/RsButton';
 // import NotificationFunc from './components/rsNotification/Base/RsNotificationFunction';
 // import Radio from './components/rsRadio/Base/RsRadio';
 // import Tooltip from './components/rsTooltip/Base/RsTooltip';
-import Modal from './components/rsModal/Base/RsModal';
+// import Modal from './components/rsModal/Base/RsModal';
+import Pagination from './components/rsPagination/Base/RsPagination';
 
 setDarkMode();
 
@@ -51,24 +53,7 @@ class App extends React.Component<any, any> {
             <img src={reactsax} className='reactsax-logo' alt='logo' />
           </div>
           <div className='center'>
-            <Button
-              color='dark'
-              onClick={() => this.setState({ active: !this.state.active })}
-            >
-              Modal
-            </Button>
-            <Modal
-              active={this.state.active}
-              handleClose={() => this.setState({ active: false })}
-              notPadding
-              notClose
-              autoWidth
-              square
-            >
-              <div className='inh'>
-                <img src={Cherno} alt='chernopic' className='cherno' />
-              </div>
-            </Modal>
+            <Pagination length={20} max={9} />
           </div>
         </header>
       </div>
