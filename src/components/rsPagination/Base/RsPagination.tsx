@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import classnames from 'classnames';
 import RsIconArrow from '../../../icons/arrow';
 import './RsPagination.styles.scss';
+import { setComponentColor } from '../../../util/index';
 
 const RsPagination = ({ ...props }) => {
   const [value, setValue] = useState(1);
@@ -16,6 +17,7 @@ const RsPagination = ({ ...props }) => {
   const {
     buttonsDotted,
     circle,
+    square,
     disabled,
     notMargin,
     onlyArrows,
@@ -29,7 +31,8 @@ const RsPagination = ({ ...props }) => {
     disabledItems = [],
     loadingItems = [],
     dottedNumber = 5,
-    infinite
+    infinite,
+    color
   } = props;
 
   useEffect(() => {
@@ -66,6 +69,14 @@ const RsPagination = ({ ...props }) => {
         }, 300);
       }
     }
+  };
+
+  const getProgress = () => {
+    let percent = 0;
+
+    percent = (value * 100) / length;
+
+    return percent;
   };
 
   const isMobile = () => {
@@ -191,15 +202,24 @@ const RsPagination = ({ ...props }) => {
     'rs-pagination-content',
     { buttonsDotted: buttonsDotted },
     { circle: circle },
+    { square: square },
     { disabled: disabled },
-    { notMargin: notMargin }
+    { notMargin: notMargin },
+    { 'rs-change-color': color }
   );
 
   const paginationActiveClasses = classnames('rs-pagination__active', {
     move: activeClassMove
   });
   return (
-    <div className={paginationContentClasses}>
+    <div
+      style={
+        {
+          '--rs-color': setComponentColor(color || 'primary')
+        } as React.CSSProperties
+      }
+      className={paginationContentClasses}
+    >
       {!onlyArrows && !children ? (
         <div
           className={paginationActiveClasses}
@@ -250,7 +270,10 @@ const RsPagination = ({ ...props }) => {
       ) : null}
       {progress ? (
         <div className='rs-pagination__progress'>
-          <div className='progress' style={{ width: `${progress}%` }}></div>
+          <div
+            className='progress'
+            style={{ width: `${getProgress()}%` }}
+          ></div>
         </div>
       ) : null}
     </div>

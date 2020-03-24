@@ -53,7 +53,7 @@ class App extends React.Component<any, any> {
             <img src={reactsax} className='reactsax-logo' alt='logo' />
           </div>
           <div className='center'>
-            <Pagination length={20} max={9} />
+            <Pagination progress length={20} max={9} />
           </div>
         </header>
       </div>
