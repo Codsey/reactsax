@@ -26,22 +26,9 @@ setDarkMode();
 class App extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
-    this.handleOpenLoading = this.handleOpenLoading.bind(this);
-    this.handleChange = this.handleChange.bind(this);
     this.state = {
       active: false
     };
-  }
-
-  handleOpenLoading() {
-    this.setState({ active: true });
-    setTimeout(() => {
-      this.setState({ active: false });
-    }, 2000);
-  }
-
-  handleChange(e: any) {
-    this.setState({ active: e.target.value });
   }
 
   render() {
