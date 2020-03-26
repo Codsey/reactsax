@@ -4,7 +4,28 @@ import RsIconArrow from '../../../icons/arrow';
 import './RsPagination.styles.scss';
 import { setComponentColor } from '../../../util/index';
 
-const RsPagination = ({ ...props }) => {
+interface RsPaginationProps {
+  buttonsDotted?: boolean;
+  circle?: boolean;
+  square?: boolean;
+  disabled?: boolean;
+  notMargin?: boolean;
+  onlyArrows?: boolean;
+  children?: any;
+  notArrows?: boolean;
+  arrowPrev?: any;
+  arrowNext?: any;
+  progress?: boolean;
+  length: number;
+  max: number;
+  disabledItems?: number[];
+  loadingItems?: number[];
+  dottedNumber?: number;
+  infinite?: boolean;
+  color?: string;
+}
+
+const RsPagination = ({ ...props }: RsPaginationProps) => {
   const [value, setValue] = useState(1);
   const [leftActive, setLeftActive] = useState(42);
   const [activeClassMove, setActiveClassMove] = useState(false);
@@ -27,7 +48,7 @@ const RsPagination = ({ ...props }) => {
     arrowNext,
     progress,
     length,
-    max,
+    max = 9,
     disabledItems = [],
     loadingItems = [],
     dottedNumber = 5,
