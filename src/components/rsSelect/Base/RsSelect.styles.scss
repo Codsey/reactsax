@@ -106,7 +106,7 @@
   justify-content: center;
   min-height: 38px;
   width: 100%;
-
+  transition: all 0.25s ease;
   &--state-success {
     @include state('success');
   }

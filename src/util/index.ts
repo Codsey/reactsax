@@ -173,9 +173,6 @@ const removeBody = (element: HTMLElement, parent: any) => {
 
 const setCords = (element: any, parent: any, initial?: boolean) => {
   const cords = parent.getBoundingClientRect();
-
-  console.log(cords);
-
   const x = cords.x;
   const y = cords.y;
   const w = cords.width;

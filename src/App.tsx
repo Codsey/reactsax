@@ -43,9 +43,14 @@ class App extends React.Component<any, any> {
           </div>
           <div className='center'>
             <Select placeholder='People'>
-              <Option>Codsey</Option>
-              <Option>Silverlight</Option>
-              <Option>Baro</Option>
+              <Option>Ace</Option>
+              <Option>Ace</Option>
+              <Option>Ace</Option>
+              <Option>Ace</Option>
+              <Option>Ace</Option>
+              <Option>Ace</Option>
+              <Option>Ace</Option>
+              <Option>Ace</Option>
             </Select>
           </div>
         </header>
