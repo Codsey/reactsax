@@ -19,7 +19,9 @@ import './styles/reactsax.scss';
 // import Radio from './components/rsRadio/Base/RsRadio';
 // import Tooltip from './components/rsTooltip/Base/RsTooltip';
 // import Modal from './components/rsModal/Base/RsModal';
-import Pagination from './components/rsPagination/Base/RsPagination';
+// import Pagination from './components/rsPagination/Base/RsPagination';
+import Select from './components/rsSelect/Base/RsSelect';
+import Option from './components/rsSelect/Option/Option';
 
 setDarkMode();
 
@@ -40,7 +42,11 @@ class App extends React.Component<any, any> {
             <img src={reactsax} className='reactsax-logo' alt='logo' />
           </div>
           <div className='center'>
-            <Pagination infinite progress length={20} max={9} />
+            <Select placeholder='People'>
+              <Option>Codsey</Option>
+              <Option>Silverlight</Option>
+              <Option>Baro</Option>
+            </Select>
           </div>
         </header>
       </div>
