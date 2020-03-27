@@ -21,7 +21,6 @@ import './styles/reactsax.scss';
 // import Modal from './components/rsModal/Base/RsModal';
 // import Pagination from './components/rsPagination/Base/RsPagination';
 import Select from './components/rsSelect/Base/RsSelect';
-import Option from './components/rsSelect/Option/Option';
 
 setDarkMode();
 
@@ -34,6 +33,13 @@ class App extends React.Component<any, any> {
   }
 
   render() {
+    const options = [
+      { value: 'codsey', label: 'Codsey' },
+      { value: 'silverlight', label: 'Silverlight' },
+      { value: 'baro', label: 'Baro', disabled: true },
+      { value: 'chernobyl', label: 'Chernobyl' }
+    ];
+
     return (
       <div className='App'>
         <header className='App-header'>
@@ -42,16 +48,7 @@ class App extends React.Component<any, any> {
             <img src={reactsax} className='reactsax-logo' alt='logo' />
           </div>
           <div className='center'>
-            <Select placeholder='People'>
-              <Option>Ace</Option>
-              <Option>Ace</Option>
-              <Option>Ace</Option>
-              <Option>Ace</Option>
-              <Option>Ace</Option>
-              <Option>Ace</Option>
-              <Option>Ace</Option>
-              <Option>Ace</Option>
-            </Select>
+            <Select label='People' options={options} color='#1ed63a' />
           </div>
         </header>
       </div>

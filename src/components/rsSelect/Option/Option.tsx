@@ -5,7 +5,15 @@ import RsCheckbox from '../../rsCheckbox/Base/RsCheckbox';
 import './Option.styles.scss';
 
 const RsSelectOption = ({ ...props }) => {
-  const { isActive, isHover, isMultiple, hiddenOption, children } = props;
+  const {
+    isActive,
+    isHover,
+    isMultiple,
+    hiddenOption,
+    children,
+    onClick,
+    disabled
+  } = props;
   const optionButtonClasses = classnames(
     'rs-select__option',
     { activeOption: isActive },
@@ -14,7 +22,11 @@ const RsSelectOption = ({ ...props }) => {
     { hiddenOption: hiddenOption }
   );
   return (
-    <button className={optionButtonClasses}>
+    <button
+      className={optionButtonClasses}
+      onClick={onClick}
+      disabled={disabled}
+    >
       {isMultiple ? (
         <RsCheckbox checked={isActive}>{children}</RsCheckbox>
       ) : null}

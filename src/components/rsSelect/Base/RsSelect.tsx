@@ -1,14 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import classnames from 'classnames';
 import RsIconArrow from '../../../icons/arrow';
+import Option from '../Option/Option';
 
 import './RsSelect.styles.scss';
 import ReactDOM from 'react-dom';
-import { setCords } from '../../../util/index';
+import { setCords, setComponentColor } from '../../../util/index';
+
+interface SelectOption {
+  value: string | number;
+  label: string | number;
+  disabled?: boolean;
+}
 
 const RsSelect = ({ ...props }) => {
   const [activeOptions, setActiveOptions] = useState(false);
   const [activeFilter, setActiveFilter] = useState(false);
+
+  const [selectedOption, setSelectedOption] = useState<string | number>();
 
   const optionsRef: React.RefObject<any> = React.createRef();
   const selectRef: React.RefObject<any> = React.createRef();
@@ -22,13 +31,15 @@ const RsSelect = ({ ...props }) => {
     labelPlaceholder,
     label,
     placeholder,
-    value,
+    // value,
     textFilter,
     isColorDark,
     notData,
-    children,
+    // children,
     messageType = 'success',
-    message
+    message,
+    options = [],
+    color
   } = props;
 
   useEffect(() => {
@@ -54,15 +65,19 @@ const RsSelect = ({ ...props }) => {
     window.addEventListener('resize', handleResize);
   }, [optionsRef, selectRef]);
 
-  const getValueLabel = () => {
-    // console.log('Value Label');
-  };
-
   const handleWindowClick = (e: any) => {
     if (activeOptions) {
       e.preventDefault();
     }
     e.target.blur();
+  };
+
+  const getInputValue = () => {
+    if (selectedOption) {
+      return selectedOption;
+    } else {
+      return '';
+    }
   };
 
   const selectContentClasses = classnames(
@@ -83,11 +98,11 @@ const RsSelect = ({ ...props }) => {
     'rs-select__label',
     { 'rs-select__label--placeholder': labelPlaceholder },
     { 'rs-select__label--label': label },
-    { 'rs-select__label--hidden': value }
+    { 'rs-select__label--hidden': selectedOption }
   );
 
   const selectPlaceholderClasses = classnames('rs-select__label', {
-    'rs-select__label--hidden': value || textFilter
+    'rs-select__label--hidden': selectedOption || textFilter
   });
 
   const selectOptionClasses = classnames(
@@ -108,10 +123,10 @@ const RsSelect = ({ ...props }) => {
         <input
           className={selectInputClasses}
           readOnly={!filter ? true : false}
-          value={activeFilter ? textFilter : getValueLabel()}
+          value={activeFilter ? textFilter : getInputValue()}
           onFocus={() => {
             if (!activeOptions) {
-              setActiveOptions(true); // SHOW OPTIONS (CHILDREN)
+              setActiveOptions(true);
             }
             if (filter) {
               setActiveFilter(true);
@@ -144,15 +159,31 @@ const RsSelect = ({ ...props }) => {
         {multiple ? <button className='rs-select__chips'></button> : null}
         {activeOptions ? (
           ReactDOM.createPortal(
-            <div className={selectOptionClasses} ref={optionsRef}>
+            <div
+              className={selectOptionClasses}
+              ref={optionsRef}
+              style={
+                {
+                  '--rs-color': setComponentColor(color || 'primary')
+                } as React.CSSProperties
+              }
+            >
               <div className='rs-select__options__content'>
                 {notData ? (
                   <div className='rs-select__options__content__not-data'>
-                    {' '}
                     {notData || 'No data available'}
                   </div>
                 ) : null}
-                {children}
+                {options.map((option: SelectOption, index: number) => (
+                  <Option
+                    key={index}
+                    onClick={() => setSelectedOption(option.label)}
+                    isActive={selectedOption === option.label}
+                    disabled={option.disabled}
+                  >
+                    {option.label}
+                  </Option>
+                ))}
               </div>
             </div>,
             document.body
