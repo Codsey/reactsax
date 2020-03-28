@@ -2,10 +2,12 @@ import React, { useState, useEffect } from 'react';
 import classnames from 'classnames';
 import RsIconArrow from '../../../icons/arrow';
 import Option from '../Option/Option';
+import GroupOption from '../OptionGroup/OptionGroup';
 
 import './RsSelect.styles.scss';
 import ReactDOM from 'react-dom';
 import { setCords, setComponentColor } from '../../../util/index';
+import RsIconClose from '../../../icons/close';
 
 interface SelectOption {
   value: string | number;
@@ -13,11 +15,20 @@ interface SelectOption {
   disabled?: boolean;
 }
 
+interface SelectGroupOption {
+  title: string;
+  options: SelectOption[];
+}
+
 const RsSelect = ({ ...props }) => {
   const [activeOptions, setActiveOptions] = useState(false);
   const [activeFilter, setActiveFilter] = useState(false);
+  const [targetClose, setTargetClose] = useState(false);
 
   const [selectedOption, setSelectedOption] = useState<string | number>();
+  const [selectedOptionsMultiple, setSelectedOptionsMultiple] = useState<any[]>(
+    []
+  );
 
   const optionsRef: React.RefObject<any> = React.createRef();
   const selectRef: React.RefObject<any> = React.createRef();
@@ -39,7 +50,9 @@ const RsSelect = ({ ...props }) => {
     messageType = 'success',
     message,
     options = [],
-    color
+    groupOptions = [],
+    color,
+    collapseChips
   } = props;
 
   useEffect(() => {
@@ -80,6 +93,106 @@ const RsSelect = ({ ...props }) => {
     }
   };
 
+  const clickOption = (label: string | number) => {
+    if (multiple) {
+      const current = [...selectedOptionsMultiple];
+      if (current.indexOf(label) === -1) {
+        current.push(label);
+      } else {
+        current.splice(current.indexOf(label), 1);
+      }
+      setSelectedOptionsMultiple(current);
+    } else {
+      setSelectedOption(label);
+    }
+  };
+
+  const getChips = () => {
+    const chip = (item: any, isCollapse: boolean) => {
+      return (
+        <span className={selectChipsClasses}>
+          {item}
+          {!isCollapse ? (
+            <span
+              className='rs-select__chips__chip__close'
+              onClick={() =>
+                setTimeout(() => {
+                  setTargetClose(false);
+                }, 100)
+              }
+              onMouseLeave={() => setTargetClose(false)}
+              onMouseEnter={() => setTargetClose(true)}
+            >
+              <RsIconClose hover='less' />
+            </span>
+          ) : null}
+        </span>
+      );
+    };
+
+    let chips: any[] = [];
+    if (selectedOptionsMultiple.length > 0) {
+      selectedOptionsMultiple.map((item: any, index: number) => {
+        return chips.push(chip(item, false));
+      });
+    }
+
+    if (collapseChips) {
+      chips = [
+        chips[0],
+        chips.length > 1 &&
+          chip({ label: `+${chips.length - 1}`, value: null }, true)
+      ];
+    }
+
+    return chips;
+  };
+
+  const getOptions = () => {
+    if (options.length > 0) {
+      return options.map((option: SelectOption, index: number) => (
+        <Option
+          key={index}
+          isMultiple={multiple}
+          isHover={multiple}
+          onClick={() => {
+            clickOption(option.label);
+          }}
+          isActive={
+            multiple
+              ? selectedOptionsMultiple.includes(option.label)
+              : selectedOption === option.label
+          }
+          disabled={option.disabled}
+        >
+          {option.label}
+        </Option>
+      ));
+    } else if (groupOptions.length > 0) {
+      return groupOptions.map((option: SelectGroupOption, index: number) => (
+        <GroupOption title={option.title} key={index}>
+          {option.options.map((option: SelectOption, index: number) => (
+            <Option
+              key={index}
+              isMultiple={multiple}
+              onClick={() => {
+                clickOption(option.label);
+              }}
+              isActive={
+                multiple
+                  ? selectedOptionsMultiple.includes(option.label)
+                  : selectedOption === option.label
+              }
+              disabled={option.disabled}
+            >
+              {option.label}
+            </Option>
+          ))}
+        </GroupOption>
+      ));
+    }
+  };
+
   const selectContentClasses = classnames(
     'rs-select',
     [`rs-select--state-${state}`],
@@ -112,6 +225,10 @@ const RsSelect = ({ ...props }) => {
       isColorDark: isColorDark
     }
   );
+
+  const selectChipsClasses = classnames('rs-select__chips__chip', {
+    isCollapse: collapseChips
+  });
 
   const selectMessageClasses = classnames('rs-select__message', [
     `rs-select__message--${messageType}`
@@ -156,7 +273,27 @@ const RsSelect = ({ ...props }) => {
         ) : null}
 
         {/** MULTIPLE HERE DO IT LATER */}
-        {multiple ? <button className='rs-select__chips'></button> : null}
+        {multiple ? (
+          <button
+            className='rs-select__chips'
+            onFocus={() => {
+              if (!targetClose) {
+                setActiveOptions(true);
+              }
+              if (filter && multiple) {
+                console.log('Filter'); // FIX THIS.
+              }
+            }}
+            onBlur={e => {
+              if (!e.relatedTarget) {
+                setActiveOptions(false);
+              }
+            }}
+          >
+            {getChips().map(chip => chip)}
+            {filter ? <input className='rs-select__chips__input' /> : null}
+          </button>
+        ) : null}
         {activeOptions ? (
           ReactDOM.createPortal(
             <div
@@ -174,16 +311,7 @@ const RsSelect = ({ ...props }) => {
                     {notData || 'No data available'}
                   </div>
                 ) : null}
-                {options.map((option: SelectOption, index: number) => (
-                  <Option
-                    key={index}
-                    onClick={() => setSelectedOption(option.label)}
-                    isActive={selectedOption === option.label}
-                    disabled={option.disabled}
-                  >
-                    {option.label}
-                  </Option>
-                ))}
+                {getOptions()}
               </div>
             </div>,
             document.body

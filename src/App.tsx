@@ -33,6 +33,21 @@ class App extends React.Component<any, any> {
   }
 
   render() {
+    const groupOptions = [
+      {
+        title: 'Friends',
+        options: [
+          { value: 'codsey', label: 'Codsey' },
+          { value: 'silverlight', label: 'Silverlight' },
+          { value: 'baro', label: 'Baro', disabled: true },
+          { value: 'chernobyl', label: 'Chernobyl' }
+        ]
+      },
+      {
+        title: 'Best Friend',
+        options: [{ value: 'hyoe', label: 'Hype' }]
+      }
+    ];
     const options = [
       { value: 'codsey', label: 'Codsey' },
       { value: 'silverlight', label: 'Silverlight' },
@@ -48,7 +63,12 @@ class App extends React.Component<any, any> {
             <img src={reactsax} className='reactsax-logo' alt='logo' />
           </div>
           <div className='center'>
-            <Select label='People' options={options} color='#1ed63a' />
+            <Select
+              multiple
+              labelPlaceholder='People'
+              groupOptions={groupOptions}
+              color='#1ed63a'
+            />
           </div>
         </header>
       </div>

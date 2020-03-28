@@ -336,7 +336,7 @@
       margin: 2px 3px;
       padding-right: 10px;
       font-size: 0.84rem;
-      border: 2px solid rs-color('gray-2');
+      // border: 2px solid rs-color('gray-2');
       box-sizing: border-box;
       color: rs-color('text');
 
@@ -388,7 +388,7 @@
   &__options {
     --rs-color: var(--rs-primary);
     position: absolute;
-    z-index: 9999;
+    z-index: 299;
     background: rs-color('background');
     padding: 5px;
     border-radius: 0px 0px 12px 12px;
