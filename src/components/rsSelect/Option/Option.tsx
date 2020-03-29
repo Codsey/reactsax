@@ -12,7 +12,8 @@ const RsSelectOption = ({ ...props }) => {
     hiddenOption,
     children,
     onClick,
-    disabled
+    disabled,
+    checkboxColor
   } = props;
   const optionButtonClasses = classnames(
     'rs-select__option',
@@ -28,7 +29,9 @@ const RsSelectOption = ({ ...props }) => {
       disabled={disabled}
     >
       {isMultiple ? (
-        <RsCheckbox checked={isActive}>{children}</RsCheckbox>
+        <RsCheckbox color={checkboxColor} checked={isActive}>
+          {children}
+        </RsCheckbox>
       ) : null}
       {!isMultiple ? children : null}
     </button>

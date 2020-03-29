@@ -6,7 +6,7 @@ import GroupOption from '../OptionGroup/OptionGroup';
 
 import './RsSelect.styles.scss';
 import ReactDOM from 'react-dom';
-import { setCords, setComponentColor } from '../../../util/index';
+import { setCords, setComponentColor, generateID } from '../../../util/index';
 import RsIconClose from '../../../icons/close';
 
 interface SelectOption {
@@ -32,6 +32,9 @@ const RsSelect = ({ ...props }) => {
 
   const optionsRef: React.RefObject<any> = React.createRef();
   const selectRef: React.RefObject<any> = React.createRef();
+  const chipRef: React.RefObject<any> = React.createRef();
+
+  const id = React.useRef(generateID());
 
   const {
     state,
@@ -42,11 +45,9 @@ const RsSelect = ({ ...props }) => {
     labelPlaceholder,
     label,
     placeholder,
-    // value,
     textFilter,
     isColorDark,
     notData,
-    // children,
     messageType = 'success',
     message,
     options = [],
@@ -61,7 +62,6 @@ const RsSelect = ({ ...props }) => {
         setCords(optionsRef.current, selectRef.current, false);
       }
     };
-
     if (optionsRef.current && selectRef.current) {
       optionsRef.current.classList.add(
         'rs-select-enter',
@@ -76,7 +76,8 @@ const RsSelect = ({ ...props }) => {
     }
     document.body.style.overflowY = 'scroll';
     window.addEventListener('resize', handleResize);
-  }, [optionsRef, selectRef]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [activeOptions]);
 
   const handleWindowClick = (e: any) => {
     if (activeOptions) {
@@ -108,18 +109,23 @@ const RsSelect = ({ ...props }) => {
   };
 
   const getChips = () => {
-    const chip = (item: any, isCollapse: boolean) => {
+    const chip = (item: any, isCollapse: boolean, key: number) => {
       return (
-        <span className={selectChipsClasses}>
+        <span className={selectChipsClasses} key={key}>
           {item}
           {!isCollapse ? (
             <span
               className='rs-select__chips__chip__close'
-              onClick={() =>
+              onClick={e => {
+                e.preventDefault();
                 setTimeout(() => {
                   setTargetClose(false);
-                }, 100)
-              }
+                }, 100);
+                if (!activeOptions) {
+                  chipRef.current.blur();
+                }
+                clickOption(item);
+              }}
               onMouseLeave={() => setTargetClose(false)}
               onMouseEnter={() => setTargetClose(true)}
             >
@@ -133,7 +139,7 @@ const RsSelect = ({ ...props }) => {
     let chips: any[] = [];
     if (selectedOptionsMultiple.length > 0) {
       selectedOptionsMultiple.map((item: any, index: number) => {
-        return chips.push(chip(item, false));
+        return chips.push(chip(item, false, index));
       });
     }
 
@@ -141,7 +147,11 @@ const RsSelect = ({ ...props }) => {
       chips = [
         chips[0],
         chips.length > 1 &&
-          chip({ label: `+${chips.length - 1}`, value: null }, true)
+          chip(
+            { label: `+${chips.length - 1}`, value: null },
+            true,
+            chips.length - 1
+          )
       ];
     }
 
@@ -164,6 +174,7 @@ const RsSelect = ({ ...props }) => {
               : selectedOption === option.label
           }
           disabled={option.disabled}
+          checkboxColor={color}
         >
           {option.label}
         </Option>
@@ -184,6 +195,7 @@ const RsSelect = ({ ...props }) => {
                   : selectedOption === option.label
               }
               disabled={option.disabled}
+              checkboxColor={color}
             >
               {option.label}
             </Option>
@@ -239,6 +251,7 @@ const RsSelect = ({ ...props }) => {
       <div className={selectContentClasses} ref={selectRef}>
         <input
           className={selectInputClasses}
+          id={!multiple ? id.current : undefined}
           readOnly={!filter ? true : false}
           value={activeFilter ? textFilter : getInputValue()}
           onFocus={() => {
@@ -263,19 +276,22 @@ const RsSelect = ({ ...props }) => {
           }}
         />
         {!multiple || label ? (
-          <label className={selectLabelClasses}>
+          <label htmlFor={id.current} className={selectLabelClasses}>
             {labelPlaceholder || label}
           </label>
         ) : null}
 
         {!multiple && !labelPlaceholder ? (
-          <label className={selectPlaceholderClasses}>{placeholder}</label>
+          <label htmlFor={id.current} className={selectPlaceholderClasses}>
+            {placeholder}
+          </label>
         ) : null}
 
         {/** MULTIPLE HERE DO IT LATER */}
         {multiple ? (
           <button
             className='rs-select__chips'
+            ref={chipRef}
             onFocus={() => {
               if (!targetClose) {
                 setActiveOptions(true);
@@ -285,13 +301,23 @@ const RsSelect = ({ ...props }) => {
               }
             }}
             onBlur={e => {
-              if (!e.relatedTarget) {
-                setActiveOptions(false);
+              if (!e.relatedTarget && activeOptions) {
+                optionsRef.current.classList.add(
+                  'rs-select-leave-active',
+                  'rs-select-leave-to'
+                );
+                setTimeout(() => {
+                  setActiveOptions(false);
+                }, 100);
+              } else if (activeOptions) {
+                e.target.focus();
               }
             }}
           >
             {getChips().map(chip => chip)}
-            {filter ? <input className='rs-select__chips__input' /> : null}
+            {filter ? (
+              <input id={id.current} className='rs-select__chips__input' />
+            ) : null}
           </button>
         ) : null}
         {activeOptions ? (

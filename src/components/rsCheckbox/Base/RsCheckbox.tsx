@@ -18,7 +18,7 @@ interface RsInputProps {
 }
 
 const RsInput = ({ ...props }: RsInputProps) => {
-  const id = generateID();
+  const id = React.useRef(generateID());
   const {
     checked,
     disabled,
@@ -37,7 +37,7 @@ const RsInput = ({ ...props }: RsInputProps) => {
 
   const checkboxContentClasses = classnames(
     'rs-checkbox-content',
-    { 'rs-checkbox--checked': checked || isChecked },
+    { 'rs-checkbox--checked': checked || isChecked.current },
     { 'rs-checkbox--disabled': disabled },
     { 'rs-checkbox--loading': loading },
     { 'rs-checkbox--label-before': labelBefore }
@@ -57,10 +57,10 @@ const RsInput = ({ ...props }: RsInputProps) => {
     >
       <div className='rs-checkbox-con'>
         <input
-          id={id}
+          id={id.current}
           type='checkbox'
           className='rs-checkbox'
-          checked={isChecked.current || checked}
+          checked={checked || isChecked.current}
           onChange={() => {
             isChecked.current = !isChecked.current;
             if (typeof onChange === 'function') {
@@ -74,7 +74,7 @@ const RsInput = ({ ...props }: RsInputProps) => {
           {icon}
         </div>
       </div>
-      <label htmlFor={id} className={checkboxLabelClasses}>
+      <label htmlFor={id.current} className={checkboxLabelClasses}>
         {children}
       </label>
     </div>

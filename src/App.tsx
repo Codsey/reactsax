@@ -48,12 +48,12 @@ class App extends React.Component<any, any> {
         options: [{ value: 'hyoe', label: 'Hype' }]
       }
     ];
-    const options = [
-      { value: 'codsey', label: 'Codsey' },
-      { value: 'silverlight', label: 'Silverlight' },
-      { value: 'baro', label: 'Baro', disabled: true },
-      { value: 'chernobyl', label: 'Chernobyl' }
-    ];
+    // const options = [
+    //   { value: 'codsey', label: 'Codsey' },
+    //   { value: 'silverlight', label: 'Silverlight' },
+    //   { value: 'baro', label: 'Baro', disabled: true },
+    //   { value: 'chernobyl', label: 'Chernobyl' }
+    // ];
 
     return (
       <div className='App'>
@@ -65,7 +65,8 @@ class App extends React.Component<any, any> {
           <div className='center'>
             <Select
               multiple
-              labelPlaceholder='People'
+              label='People'
+              placeholder='People'
               groupOptions={groupOptions}
               color='#1ed63a'
             />
