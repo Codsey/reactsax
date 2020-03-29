@@ -30,9 +30,11 @@ const RsSelect = ({ ...props }) => {
     []
   );
 
+  const [inputHeight, setInputHeight] = useState(0);
+
   const optionsRef: React.RefObject<any> = React.createRef();
   const selectRef: React.RefObject<any> = React.createRef();
-  const chipRef: React.RefObject<any> = React.createRef();
+  const chipRef: React.MutableRefObject<any> = React.createRef();
 
   const id = React.useRef(generateID());
 
@@ -76,6 +78,8 @@ const RsSelect = ({ ...props }) => {
     }
     document.body.style.overflowY = 'scroll';
     window.addEventListener('resize', handleResize);
+
+    return () => window.removeEventListener('resize', handleResize);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [activeOptions]);
 
@@ -84,6 +88,13 @@ const RsSelect = ({ ...props }) => {
       e.preventDefault();
     }
     e.target.blur();
+  };
+
+  const getHeight = () => {
+    if (inputHeight) {
+      return `${inputHeight}px`;
+    }
+    return undefined;
   };
 
   const getInputValue = () => {
@@ -174,7 +185,7 @@ const RsSelect = ({ ...props }) => {
               : selectedOption === option.label
           }
           disabled={option.disabled}
-          checkboxColor={color}
+          cckboxColor={color}
         >
           {option.label}
         </Option>
@@ -223,7 +234,10 @@ const RsSelect = ({ ...props }) => {
     'rs-select__label',
     { 'rs-select__label--placeholder': labelPlaceholder },
     { 'rs-select__label--label': label },
-    { 'rs-select__label--hidden': selectedOption }
+    {
+      'rs-select__label--hidden':
+        selectedOption || selectedOptionsMultiple.length > 0
+    }
   );
 
   const selectPlaceholderClasses = classnames('rs-select__label', {
@@ -252,6 +266,7 @@ const RsSelect = ({ ...props }) => {
         <input
           className={selectInputClasses}
           id={!multiple ? id.current : undefined}
+          style={{ height: getHeight() }}
           readOnly={!filter ? true : false}
           value={activeFilter ? textFilter : getInputValue()}
           onFocus={() => {
@@ -275,7 +290,7 @@ const RsSelect = ({ ...props }) => {
             handleWindowClick(e);
           }}
         />
-        {!multiple || label ? (
+        {!multiple || label || labelPlaceholder ? (
           <label htmlFor={id.current} className={selectLabelClasses}>
             {labelPlaceholder || label}
           </label>
@@ -291,7 +306,10 @@ const RsSelect = ({ ...props }) => {
         {multiple ? (
           <button
             className='rs-select__chips'
-            ref={chipRef}
+            ref={e => {
+              if (e?.scrollHeight) setInputHeight(e?.scrollHeight);
+              chipRef.current = e;
+            }}
             onFocus={() => {
               if (!targetClose) {
                 setActiveOptions(true);

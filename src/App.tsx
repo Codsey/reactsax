@@ -45,7 +45,7 @@ class App extends React.Component<any, any> {
       },
       {
         title: 'Best Friend',
-        options: [{ value: 'hyoe', label: 'Hype' }]
+        options: [{ value: 'hype', label: 'Hype' }]
       }
     ];
     // const options = [
@@ -65,8 +65,8 @@ class App extends React.Component<any, any> {
           <div className='center'>
             <Select
               multiple
-              label='People'
-              placeholder='People'
+              // label='Friends'
+              labelPlaceholder='Friends'
               groupOptions={groupOptions}
               color='#1ed63a'
             />

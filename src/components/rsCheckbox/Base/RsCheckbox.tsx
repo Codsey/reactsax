@@ -33,11 +33,11 @@ const RsInput = ({ ...props }: RsInputProps) => {
     ...rest
   } = props;
 
-  let isChecked = React.useRef(checked || false);
+  // let isChecked = React.useRef(checked || false);
 
   const checkboxContentClasses = classnames(
     'rs-checkbox-content',
-    { 'rs-checkbox--checked': checked || isChecked.current },
+    { 'rs-checkbox--checked': checked },
     { 'rs-checkbox--disabled': disabled },
     { 'rs-checkbox--loading': loading },
     { 'rs-checkbox--label-before': labelBefore }
@@ -60,9 +60,9 @@ const RsInput = ({ ...props }: RsInputProps) => {
           id={id.current}
           type='checkbox'
           className='rs-checkbox'
-          checked={checked || isChecked.current}
+          checked={checked}
           onChange={() => {
-            isChecked.current = !isChecked.current;
+            // isChecked.current = !isChecked.current;
             if (typeof onChange === 'function') {
               onChange();
             }
