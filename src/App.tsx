@@ -5,7 +5,6 @@ import './App.css';
 import { setDarkMode } from './util/index';
 import './styles/reactsax.scss';
 
-// import Cherno from './cherno.jpg';
 // import Alert from './components/rsAlert/Base/rsAlert';
 // import Loading from './components/rsLoading/Base/RsLoading';
 // import Button from './components/rsButton/Base/RsButton';
@@ -68,7 +67,7 @@ class App extends React.Component<any, any> {
               // label='Friends'
               labelPlaceholder='Friends'
               groupOptions={groupOptions}
-              color='#1ed63a'
+              color='#fdd700'
             />
           </div>
         </header>
