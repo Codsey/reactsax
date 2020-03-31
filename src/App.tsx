@@ -64,6 +64,7 @@ class App extends React.Component<any, any> {
           <div className='center'>
             <Select
               multiple
+              filter
               // label='Friends'
               labelPlaceholder='Friends'
               groupOptions={groupOptions}

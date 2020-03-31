@@ -11,7 +11,7 @@ import RsIconClose from '../../../icons/close';
 
 interface SelectOption {
   value: string | number;
-  label: string | number;
+  label: string;
   disabled?: boolean;
 }
 
@@ -24,7 +24,7 @@ const RsSelect = ({ ...props }) => {
   const [activeOptions, setActiveOptions] = useState(false);
   const [activeFilter, setActiveFilter] = useState(false);
   const [targetClose, setTargetClose] = useState(false);
-
+  const [textFilter, setTextFilter] = useState('');
   const [selectedOption, setSelectedOption] = useState<string | number>();
   const [selectedOptionsMultiple, setSelectedOptionsMultiple] = useState<any[]>(
     []
@@ -35,6 +35,7 @@ const RsSelect = ({ ...props }) => {
   const optionsRef: React.RefObject<any> = React.createRef();
   const selectRef: React.RefObject<any> = React.createRef();
   const chipRef: React.MutableRefObject<any> = React.createRef();
+  const multipleInputRef: React.RefObject<any> = React.createRef();
 
   const id = React.useRef(generateID());
 
@@ -47,7 +48,7 @@ const RsSelect = ({ ...props }) => {
     labelPlaceholder,
     label,
     placeholder,
-    textFilter,
+    // textFilter,
     isColorDark,
     notData,
     messageType = 'success',
@@ -57,6 +58,21 @@ const RsSelect = ({ ...props }) => {
     color,
     collapseChips
   } = props;
+
+  const handleOptionsFilter = () => {
+    if (multiple) {
+      return groupOptions.map((group: SelectGroupOption) => {
+        return {
+          title: group.title,
+          options: group.options.filter(option => {
+            return option.label.includes(textFilter);
+          })
+        };
+      });
+    }
+  };
+
+  console.log(handleOptionsFilter());
 
   useEffect(() => {
     const handleResize = () => {
@@ -191,28 +207,34 @@ const RsSelect = ({ ...props }) => {
         </Option>
       ));
     } else if (groupOptions.length > 0) {
-      return groupOptions.map((option: SelectGroupOption, index: number) => (
-        <GroupOption title={option.title} key={index}>
-          {option.options.map((option: SelectOption, index: number) => (
-            <Option
-              key={index}
-              isMultiple={multiple}
-              onClick={() => {
-                clickOption(option.label);
-              }}
-              isActive={
-                multiple
-                  ? selectedOptionsMultiple.includes(option.label)
-                  : selectedOption === option.label
-              }
-              disabled={option.disabled}
-              checkboxColor={color}
-            >
-              {option.label}
-            </Option>
-          ))}
-        </GroupOption>
-      ));
+      return handleOptionsFilter().map(
+        (option: SelectGroupOption, index: number) => {
+          if (option.options.length > 0) {
+            return (
+              <GroupOption title={option.title} key={index}>
+                {option.options.map((option: SelectOption, index: number) => (
+                  <Option
+                    key={index}
+                    isMultiple={multiple}
+                    onClick={() => {
+                      clickOption(option.label);
+                    }}
+                    isActive={
+                      multiple
+                        ? selectedOptionsMultiple.includes(option.label)
+                        : selectedOption === option.label
+                    }
+                    disabled={option.disabled}
+                    checkboxColor={color}
+                  >
+                    {option.label}
+                  </Option>
+                ))}
+              </GroupOption>
+            );
+          } else return null;
+        }
+      );
     }
   };
 
@@ -236,7 +258,9 @@ const RsSelect = ({ ...props }) => {
     { 'rs-select__label--label': label },
     {
       'rs-select__label--hidden':
-        selectedOption || selectedOptionsMultiple.length > 0
+        selectedOption ||
+        selectedOptionsMultiple.length > 0 ||
+        textFilter !== ''
     }
   );
 
@@ -269,6 +293,7 @@ const RsSelect = ({ ...props }) => {
           style={{ height: getHeight() }}
           readOnly={!filter ? true : false}
           value={activeFilter ? textFilter : getInputValue()}
+          onChange={e => setTextFilter(e.target.value)}
           onFocus={() => {
             if (!activeOptions) {
               setActiveOptions(true);
@@ -315,7 +340,7 @@ const RsSelect = ({ ...props }) => {
                 setActiveOptions(true);
               }
               if (filter && multiple) {
-                console.log('Filter'); // FIX THIS.
+                multipleInputRef.current.focus(); // FIX THIS.
               }
             }}
             onBlur={e => {
@@ -334,7 +359,20 @@ const RsSelect = ({ ...props }) => {
           >
             {getChips().map(chip => chip)}
             {filter ? (
-              <input id={id.current} className='rs-select__chips__input' />
+              <input
+                id={id.current}
+                className='rs-select__chips__input'
+                ref={multipleInputRef}
+                value={textFilter}
+                onChange={e => {
+                  setTextFilter(e.target.value);
+                }}
+                onFocus={() => {
+                  if (!targetClose) {
+                    setActiveOptions(true);
+                  }
+                }}
+              />
             ) : null}
           </button>
         ) : null}

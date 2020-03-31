@@ -318,7 +318,7 @@
       background: transparent;
       margin: 2px 3px;
       min-width: 30px;
-
+      color: rs-color('text');
       &::placeholder {
         color: rs-color('text', 0.4);
       }
@@ -394,6 +394,7 @@
     border-radius: 0px 0px 12px 12px;
     overflow: hidden;
     box-shadow: 0px 10px 20px -5px rgba(0, 0, 0, rs-var(shadow-opacity));
+    transition: height 0.25s ease !important;
 
     &.top {
       border-radius: 12px 12px 0px 0px;
