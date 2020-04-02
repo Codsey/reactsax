@@ -20,7 +20,27 @@ interface SelectGroupOption {
   options: SelectOption[];
 }
 
-const RsSelect = ({ ...props }) => {
+interface RsSelectProps {
+  state?: string;
+  disabled?: boolean;
+  loading?: boolean;
+  multiple?: boolean;
+  filter?: boolean;
+  labelPlaceholder?: string;
+  label?: string;
+  placeholder?: string;
+  isColorDark?: boolean;
+  notData?: boolean | string;
+  messageType?: string; // TODO: FIX THIS TO SPECIFIC VALUES
+  message?: string;
+  // options?: SelectOption[];
+  // groupOptions?: SelectGroupOption[];
+  color?: string;
+  collapseChips?: boolean;
+  [x: string]: any;
+}
+
+const RsSelect = ({ ...props }: RsSelectProps) => {
   const [activeOptions, setActiveOptions] = useState(false);
   const [activeFilter, setActiveFilter] = useState(false);
   const [targetClose, setTargetClose] = useState(false);
@@ -48,7 +68,6 @@ const RsSelect = ({ ...props }) => {
     labelPlaceholder,
     label,
     placeholder,
-    // textFilter,
     isColorDark,
     notData,
     messageType = 'success',
