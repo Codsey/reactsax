@@ -32,27 +32,27 @@ class App extends React.Component<any, any> {
   }
 
   render() {
-    const groupOptions = [
-      {
-        title: 'Friends',
-        options: [
-          { value: 'codsey', label: 'Codsey' },
-          { value: 'silverlight', label: 'Silverlight' },
-          { value: 'baro', label: 'Baro', disabled: true },
-          { value: 'chernobyl', label: 'Chernobyl' }
-        ]
-      },
-      {
-        title: 'Best Friend',
-        options: [{ value: 'hype', label: 'Hype' }]
-      }
-    ];
-    // const options = [
-    //   { value: 'codsey', label: 'Codsey' },
-    //   { value: 'silverlight', label: 'Silverlight' },
-    //   { value: 'baro', label: 'Baro', disabled: true },
-    //   { value: 'chernobyl', label: 'Chernobyl' }
+    // const groupOptions = [
+    //   {
+    //     title: 'Friends',
+    //     options: [
+    //       { value: 'codsey', label: 'Codsey' },
+    //       { value: 'silverlight', label: 'Silverlight' },
+    //       { value: 'baro', label: 'Baro', disabled: true },
+    //       { value: 'chernobyl', label: 'Chernobyl' }
+    //     ]
+    //   },
+    //   {
+    //     title: 'Best Friend',
+    //     options: [{ value: 'hype', label: 'Hype' }]
+    //   }
     // ];
+    const options = [
+      { value: 'codsey', label: 'Codsey' },
+      { value: 'silverlight', label: 'Silverlight' },
+      { value: 'baro', label: 'Baro', disabled: true },
+      { value: 'chernobyl', label: 'Chernobyl' }
+    ];
 
     return (
       <div className='App'>
@@ -63,11 +63,10 @@ class App extends React.Component<any, any> {
           </div>
           <div className='center'>
             <Select
-              multiple
               filter
               // label='Friends'
               labelPlaceholder='Friends'
-              groupOptions={groupOptions}
+              options={options}
               color='#fdd700'
             />
           </div>

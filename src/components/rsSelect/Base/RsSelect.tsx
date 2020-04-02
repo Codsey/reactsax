@@ -179,9 +179,11 @@ const RsSelect = ({ ...props }) => {
       );
 
       return [].concat.apply([], filteredValue);
+    } else {
+      return options.filter((option: SelectOption) =>
+        option.label.includes(textFilter)
+      );
     }
-
-    return [];
   };
 
   const isHidden = (label: string) => {
@@ -224,6 +226,7 @@ const RsSelect = ({ ...props }) => {
           }
           disabled={option.disabled}
           cckboxColor={color}
+          hiddenOption={isHidden(option.label)}
         >
           {option.label}
         </Option>
