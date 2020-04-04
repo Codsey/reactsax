@@ -19,41 +19,20 @@ import './styles/reactsax.scss';
 // import Tooltip from './components/rsTooltip/Base/RsTooltip';
 // import Modal from './components/rsModal/Base/RsModal';
 // import Pagination from './components/rsPagination/Base/RsPagination';
-import Select from './components/rsSelect/Base/RsSelect';
-
+// import Select from './components/rsSelect/Base/RsSelect';
+import Row from './components/rsLayout/rsGrid/RsRow';
+import Col from './components/rsLayout/rsGrid/RsCol';
 setDarkMode();
 
 class App extends React.Component<any, any> {
   constructor(props: any) {
     super(props);
     this.state = {
-      active: false
+      active: false,
     };
   }
 
   render() {
-    // const groupOptions = [
-    //   {
-    //     title: 'Friends',
-    //     options: [
-    //       { value: 'codsey', label: 'Codsey' },
-    //       { value: 'silverlight', label: 'Silverlight' },
-    //       { value: 'baro', label: 'Baro', disabled: true },
-    //       { value: 'chernobyl', label: 'Chernobyl' }
-    //     ]
-    //   },
-    //   {
-    //     title: 'Best Friend',
-    //     options: [{ value: 'hype', label: 'Hype' }]
-    //   }
-    // ];
-    const options = [
-      { value: 'codsey', label: 'Codsey' },
-      { value: 'silverlight', label: 'Silverlight' },
-      { value: 'baro', label: 'Baro', disabled: true },
-      { value: 'chernobyl', label: 'Chernobyl' }
-    ];
-
     return (
       <div className='App'>
         <header className='App-header'>
@@ -62,13 +41,41 @@ class App extends React.Component<any, any> {
             <img src={reactsax} className='reactsax-logo' alt='logo' />
           </div>
           <div className='center'>
-            <Select
-              filter
-              // label='Friends'
-              labelPlaceholder='Friends'
-              options={options}
-              color='#fdd700'
-            />
+            <Row>
+              <Col lg={12}>100%</Col>
+            </Row>
+            <Row>
+              <Col lg={6}>50%</Col>
+              <Col lg={6}>50%</Col>
+            </Row>
+            <Row>
+              <Col lg={3}>25%</Col>
+              <Col lg={3}>25%</Col>
+              <Col lg={3}>25%</Col>
+              <Col lg={3}>25%</Col>
+            </Row>
+            <Row>
+              <Col lg={2}>16.6%</Col>
+              <Col lg={2}>16.6%</Col>
+              <Col lg={2}>16.6%</Col>
+              <Col lg={2}>16.6%</Col>
+              <Col lg={2}>16.6%</Col>
+              <Col lg={2}>16.6%</Col>
+            </Row>
+            <Row>
+              <Col lg={1}>8.3%</Col>
+              <Col lg={1}>8.3%</Col>
+              <Col lg={1}>8.3%</Col>
+              <Col lg={1}>8.3%</Col>
+              <Col lg={1}>8.3%</Col>
+              <Col lg={1}>8.3%</Col>
+              <Col lg={1}>8.3%</Col>
+              <Col lg={1}>8.3%</Col>
+              <Col lg={1}>8.3%</Col>
+              <Col lg={1}>8.3%</Col>
+              <Col lg={1}>8.3%</Col>
+              <Col lg={1}>8.3%</Col>
+            </Row>
           </div>
         </header>
       </div>
