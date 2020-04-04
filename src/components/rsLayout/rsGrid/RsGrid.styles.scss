@@ -41,7 +41,6 @@ $sizes: (
     }
   }
 
-  // responsive
   @each $num, $size in $sizes {
     &--lg-#{$num} {
       width: $size;
