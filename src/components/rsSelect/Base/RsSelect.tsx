@@ -1,3 +1,5 @@
+//TODO: NOT READY FOR PRODUCTION!
+
 import React, { useState, useEffect } from 'react';
 import classnames from 'classnames';
 import RsIconArrow from '../../../icons/arrow';
@@ -33,8 +35,8 @@ interface RsSelectProps {
   notData?: boolean | string;
   messageType?: string; // TODO: FIX THIS TO SPECIFIC VALUES
   message?: string;
-  // options?: SelectOption[];
-  // groupOptions?: SelectGroupOption[];
+  options?: SelectOption[];
+  groupOptions?: SelectGroupOption[];
   color?: string;
   collapseChips?: boolean;
   [x: string]: any;
@@ -75,7 +77,7 @@ const RsSelect = ({ ...props }: RsSelectProps) => {
     options = [],
     groupOptions = [],
     color,
-    collapseChips
+    collapseChips,
   } = props;
 
   useEffect(() => {
@@ -147,7 +149,7 @@ const RsSelect = ({ ...props }: RsSelectProps) => {
           {!isCollapse ? (
             <span
               className='rs-select__chips__chip__close'
-              onClick={e => {
+              onClick={(e) => {
                 e.preventDefault();
                 setTimeout(() => {
                   setTargetClose(false);
@@ -182,7 +184,7 @@ const RsSelect = ({ ...props }: RsSelectProps) => {
             { label: `+${chips.length - 1}`, value: null },
             true,
             chips.length - 1
-          )
+          ),
       ];
     }
 
@@ -197,7 +199,7 @@ const RsSelect = ({ ...props }: RsSelectProps) => {
         )
       );
 
-      return [].concat.apply([], filteredValue);
+      return ([] as any[]).concat.apply([], filteredValue);
     } else {
       return options.filter((option: SelectOption) =>
         option.label.includes(textFilter)
@@ -301,29 +303,30 @@ const RsSelect = ({ ...props }: RsSelectProps) => {
     { 'rs-select__label--label': label },
     {
       'rs-select__label--hidden':
-        selectedOption || selectedOptionsMultiple.length > 0 || textFilter
+        selectedOption || selectedOptionsMultiple.length > 0 || textFilter,
     }
   );
 
   const selectPlaceholderClasses = classnames('rs-select__label', {
-    'rs-select__label--hidden': selectedOption || textFilter
+    'rs-select__label--hidden': selectedOption || textFilter,
   });
 
   const selectOptionClasses = classnames(
     'rs-select-enter',
     'rs-select__options',
     {
-      isColorDark: isColorDark
+      isColorDark: isColorDark,
     }
   );
 
   const selectChipsClasses = classnames('rs-select__chips__chip', {
-    isCollapse: collapseChips
+    isCollapse: collapseChips,
   });
 
   const selectMessageClasses = classnames('rs-select__message', [
-    `rs-select__message--${messageType}`
+    `rs-select__message--${messageType}`,
   ]);
+  console.log(selectedOption);
   return (
     <div className='rs-select-content'>
       <div className={selectContentClasses} ref={selectRef}>
@@ -333,7 +336,7 @@ const RsSelect = ({ ...props }: RsSelectProps) => {
           style={{ height: getHeight() }}
           readOnly={!filter ? true : false}
           value={activeFilter ? textFilter : getInputValue()}
-          onChange={e => setTextFilter(e.target.value)}
+          onChange={(e) => setTextFilter(e.target.value)}
           onFocus={() => {
             if (!activeOptions) {
               setActiveOptions(true);
@@ -349,9 +352,10 @@ const RsSelect = ({ ...props }: RsSelectProps) => {
             );
             setTimeout(() => {
               setActiveOptions(false);
+              setActiveFilter(false);
             }, 100);
           }}
-          onMouseDown={e => {
+          onMouseDown={(e) => {
             handleWindowClick(e);
           }}
         />
@@ -367,11 +371,10 @@ const RsSelect = ({ ...props }: RsSelectProps) => {
           </label>
         ) : null}
 
-        {/** MULTIPLE HERE DO IT LATER */}
         {multiple ? (
           <button
             className='rs-select__chips'
-            ref={e => {
+            ref={(e) => {
               if (e?.scrollHeight) setInputHeight(e?.scrollHeight);
               chipRef.current = e;
             }}
@@ -383,7 +386,7 @@ const RsSelect = ({ ...props }: RsSelectProps) => {
                 multipleInputRef.current.focus(); // FIX THIS.
               }
             }}
-            onBlur={e => {
+            onBlur={(e) => {
               if (!e.relatedTarget && activeOptions) {
                 optionsRef.current.classList.add(
                   'rs-select-leave-active',
@@ -397,14 +400,14 @@ const RsSelect = ({ ...props }: RsSelectProps) => {
               }
             }}
           >
-            {getChips().map(chip => chip)}
+            {getChips().map((chip) => chip)}
             {filter ? (
               <input
                 id={id.current}
                 className='rs-select__chips__input'
                 ref={multipleInputRef}
                 value={textFilter}
-                onChange={e => setTextFilter(e.target.value)}
+                onChange={(e) => setTextFilter(e.target.value)}
                 onFocus={() => {
                   if (!targetClose) {
                     setActiveOptions(true);
@@ -421,7 +424,7 @@ const RsSelect = ({ ...props }: RsSelectProps) => {
               ref={optionsRef}
               style={
                 {
-                  '--rs-color': setComponentColor(color || 'primary')
+                  '--rs-color': setComponentColor(color || 'primary'),
                 } as React.CSSProperties
               }
             >
