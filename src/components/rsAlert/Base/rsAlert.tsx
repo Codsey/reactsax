@@ -107,8 +107,8 @@ class RsAlert extends React.Component<any, any> {
         component={'span'}
         in={active}
         timeout={500}
-        onEnter={e => this.beforeEnter(e)}
-        onEntering={e => this.enter(e)}
+        onEnter={(e: any) => this.beforeEnter(e)}
+        onEntering={(e: any) => this.enter(e)}
         onExit={e => this.leave(e)}
       >
         <div
@@ -140,8 +140,8 @@ class RsAlert extends React.Component<any, any> {
               component={'span'}
               in={!hiddenContent}
               timeout={500}
-              onEnter={e => this.beforeEnter(e)}
-              onEntering={e => this.enter(e)}
+              onEnter={(e: any) => this.beforeEnter(e)}
+              onEntering={(e: any) => this.enter(e)}
               onExit={e => this.leave(e)}
             >
               <div className='rs-alert__content' ref={this.contentRef}>
