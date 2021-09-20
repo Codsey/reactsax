@@ -1,6 +1,6 @@
-@import '../../../styles/mixins';
-@import '../../../styles/colors';
-@import 'root';
+@import "../../../styles/mixins";
+@import "../../../styles/colors";
+@import "root";
 
 .rs-button {
   border: 0px;
@@ -18,10 +18,11 @@
   outline: none;
   font-size: 0.8rem;
   box-sizing: border-box;
+  cursor: pointer;
 
   &.rs-component-dark {
     &.rs-button--transparent {
-      color: rs-color('text') !important;
+      color: rs-color("text") !important;
     }
   }
 
@@ -148,11 +149,11 @@
 
   &--upload {
     &:after {
-      content: '';
+      content: "";
       position: absolute;
       width: 100%;
       height: 100%;
-      background: rs-color('color', 0.4);
+      background: rs-color("color", 0.4);
       top: 0px;
       left: 0px;
       z-index: 1200;
@@ -175,11 +176,11 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    background: rs-color('color', 0.8);
+    background: rs-color("color", 0.8);
     border-radius: inherit;
 
     &:after {
-      content: '';
+      content: "";
       width: 17px;
       height: 17px;
       border: 2px dotted rgba(255, 255, 255, 0.6);
@@ -194,7 +195,7 @@
 
     &:before {
       position: absolute;
-      content: '';
+      content: "";
       width: 17px;
       height: 17px;
       border: 2px solid rgb(255, 255, 255);
@@ -337,7 +338,7 @@
   color: rs-color(color, 1);
 
   &:before {
-    content: '';
+    content: "";
     border: 2px solid rs-color(color, 1);
     position: absolute;
     top: 0px;
@@ -369,7 +370,7 @@
 }
 
 .rs-button--gradient {
-  background: rs-color('color');
+  background: rs-color("color");
   color: #fff;
   overflow: hidden;
 
@@ -381,11 +382,11 @@
   }
 
   &::before {
-    content: '';
+    content: "";
     background: linear-gradient(
       30deg,
-      rs-color('color', 0) 33%,
-      rs-color('color', 1) 100%
+      rs-color("color", 0) 33%,
+      rs-color("color", 1) 100%
     );
     position: absolute;
     top: 0px;
@@ -402,7 +403,7 @@
 
   &:hover {
     transform: translate(0, -3px);
-    box-shadow: 0px 10px 20px -10px rs-color('color', 0.7);
+    box-shadow: 0px 10px 20px -10px rs-color("color", 0.7);
 
     &::before {
       opacity: 0;
@@ -418,7 +419,7 @@
 }
 
 .rs-button--relief {
-  background: rs-color('color');
+  background: rs-color("color");
   color: #fff;
   overflow: hidden;
   transform: translate(0) scale(1, 1);
@@ -434,7 +435,7 @@
   }
 
   &::before {
-    content: '';
+    content: "";
     position: absolute;
     bottom: 0px;
     left: 0px;
@@ -445,7 +446,7 @@
     transition: all 0.4s ease;
     z-index: -1;
     filter: contrast(2) grayscale(0.4);
-    border-bottom: 3px solid rs-color('color');
+    border-bottom: 3px solid rs-color("color");
     box-sizing: border-box;
   }
 
@@ -457,7 +458,7 @@
     }
 
     &::before {
-      border-bottom: 0px solid rs-color('color');
+      border-bottom: 0px solid rs-color("color");
     }
   }
 
@@ -469,19 +470,19 @@
     }
 
     &::before {
-      border-bottom: 0px solid rs-color('color');
+      border-bottom: 0px solid rs-color("color");
     }
   }
 }
 
 .rs-button--transparent {
   background: transparent;
-  color: rs-color('color');
+  color: rs-color("color");
   overflow: hidden;
 
   &::before {
-    content: '';
-    background: rs-color('color', 0.1);
+    content: "";
+    background: rs-color("color", 0.1);
 
     // background: rs-color('color', rs-var('background-opacity'))
     position: absolute;
@@ -513,7 +514,7 @@
 
   &.rs-button--active {
     &::before {
-      background: rs-color('color', 0.2);
+      background: rs-color("color", 0.2);
       opacity: 1;
       transform: scale(1);
     }
@@ -521,8 +522,8 @@
 }
 
 .rs-button--shadow {
-  background: rs-color('background');
-  color: rs-color('text');
+  background: rs-color("background");
+  color: rs-color("text");
   overflow: hidden;
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, rs-var(shadow-opacity));
 

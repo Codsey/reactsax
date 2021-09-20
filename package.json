@@ -22,10 +22,22 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "storybook": "start-storybook -p 6006 -s public",
+    "build-storybook": "build-storybook -s public"
   },
   "eslintConfig": {
-    "extends": "react-app"
+    "extends": "react-app",
+    "overrides": [
+      {
+        "files": [
+          "**/*.stories.*"
+        ],
+        "rules": {
+          "import/no-anonymous-default-export": "off"
+        }
+      }
+    ]
   },
   "browserslist": {
     "production": [
@@ -40,6 +52,12 @@
     ]
   },
   "devDependencies": {
+    "@storybook/addon-actions": "^6.3.8",
+    "@storybook/addon-essentials": "^6.3.8",
+    "@storybook/addon-links": "^6.3.8",
+    "@storybook/node-logger": "^6.3.8",
+    "@storybook/preset-create-react-app": "^3.2.0",
+    "@storybook/react": "^6.3.8",
     "@types/classnames": "^2.3.1",
     "@types/react-addons-transition-group": "^15.0.5",
     "@types/react-transition-group": "^4.4.3"

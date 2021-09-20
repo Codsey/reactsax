@@ -8,7 +8,7 @@ interface RsButtonProps {
   children?: React.ReactNode;
   componentColor?: string;
   color?: string;
-  size?: string | null;
+  size?: string;
   active?: boolean;
   disabled?: boolean;
   icon?: boolean;
@@ -37,7 +37,7 @@ const RsButton = ({ ...props }: RsButtonProps) => {
   const {
     children,
     componentColor = 'primary',
-    size = null,
+    size = "default",
     color = 'primary',
     active,
     disabled,
