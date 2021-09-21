@@ -1,11 +1,12 @@
 import React from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
-import RsButton from "./RsButton";
+import RsButton from "./Base/RsButton";
+import RsButtonGroup from "./Group/RsButtonGroup";
 
 import "boxicons";
 
-import "../../../App.css";
+import "../../App.css";
 
 export default {
   title: "Components/Button",
@@ -208,6 +209,16 @@ const Template: ComponentStory<typeof RsButton> = (args) => (
   </div>
 );
 
+const GroupTemplate: ComponentStory<typeof RsButtonGroup> = (args) => (
+  <div className="center">
+    <RsButtonGroup>
+      <RsButton {...args}>{args.children}</RsButton>
+      <RsButton {...args}>{args.children}</RsButton>
+      <RsButton {...args}>{args.children}</RsButton>
+    </RsButtonGroup>
+  </div>
+);
+
 const SizeTemplate: ComponentStory<typeof RsButton> = (args) => (
   <div className="center">
     <RsButton size="xl">XLarge</RsButton>
@@ -260,6 +271,7 @@ Color.args = {
 export const Icon = Template.bind({});
 Icon.args = {
   icon: true,
+  // @ts-ignore
   children: <box-icon name="home" type="solid" color="#e6dfdf"></box-icon>,
 };
 
@@ -301,4 +313,9 @@ Animate.args = {
 export const Floating = Template.bind({});
 Floating.args = {
   floating: true,
+};
+
+export const Group = GroupTemplate.bind({});
+Group.args = {
+  children: "I'm A Button",
 };
