@@ -1,14 +1,25 @@
-import React from 'react';
-import classnames from 'classnames';
-import './RsLoading.styles.scss';
-import { setComponentColor } from '../../../util';
+import React from "react";
+import classnames from "classnames";
+import "./RsLoading.styles.scss";
+import { setComponentColor } from "../../../util";
 
 interface RsLoadingProps {
   isVisible?: boolean;
-  type?: string;
+  type?:
+    | "default"
+    | "waves"
+    | "corners"
+    | "border"
+    | "points"
+    | "square"
+    | "gradient"
+    | "rectangle"
+    | "circles"
+    | "square-rotate"
+    | "scale";
   target?: boolean;
   color?: string;
-  background?: string | null;
+  background?: string;
   scale?: string | number;
   text?: string;
   percent?: string | number;
@@ -21,22 +32,21 @@ const RsLoading = ({ ...props }: RsLoadingProps) => {
     isVisible,
     type,
     target,
-    background,
+    background = "primary",
     color,
     scale,
     text,
     percent,
     progress,
-    opacity
+    opacity,
   } = props;
 
   const visibleClasses = classnames(
-    'rs-loading',
-    [`rs-loading--${type || 'default'}`],
-    { 'rs-loading--target': target },
-    { 'rs-loading--background': background }
+    "rs-loading",
+    [`rs-loading--${type || "default"}`],
+    { "rs-loading--target": target },
+    { "rs-loading--background": background }
   );
-  console.log(isVisible);
   return (
     <React.Fragment>
       {isVisible ? (
@@ -44,30 +54,32 @@ const RsLoading = ({ ...props }: RsLoadingProps) => {
           className={visibleClasses}
           style={
             {
-              '--rs-color': setComponentColor(color || 'primary'),
-              '--rs-background': background
+              "--rs-color": setComponentColor(color || "primary"),
+              "--rs-background": background
                 ? setComponentColor(background)
                 : null,
-              '--rs-opacity': opacity
+              "--rs-opacity": opacity,
             } as React.CSSProperties
           }
         >
           <div
-            className='rs-loading__load'
+            className="rs-loading__load"
             style={{ transform: `scale(${scale})` }}
           >
-            <div className='rs-loading__load__animation'>
-              <div className='rs-loading__load__percent'> {percent}</div>
-              <div className='rs-loading__load__animation__1'></div>
-              <div className='rs-loading__load__animation__2'></div>
-              <div className='rs-loading__load__animation__3'></div>
+            <div className="rs-loading__load__animation">
+              <div className="rs-loading__load__percent">
+                {percent ? `${percent}%` : null}
+              </div>
+              <div className="rs-loading__load__animation__1"></div>
+              <div className="rs-loading__load__animation__2"></div>
+              <div className="rs-loading__load__animation__3"></div>
             </div>
-            <div className='rs-loading__load__text'>{text}</div>
+            <div className="rs-loading__load__text">{text}</div>
           </div>
           {progress ? (
-            <div className='rs-loading__progress'>
+            <div className="rs-loading__progress">
               <div
-                className='rs-loading__progress__bar'
+                className="rs-loading__progress__bar"
                 style={{ width: `${progress}%` }}
               ></div>
             </div>

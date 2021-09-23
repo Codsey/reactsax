@@ -83,3 +83,15 @@
     transform: rotate(360deg);
   }
 }
+
+.loading-box {
+  width: 120px;
+  height: 120px;
+  position: relative;
+  margin: 5px;
+  border-radius: 20px;
+  box-shadow: 0 10px 20px -10px rgb(0 0 0 / 7%);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.25s ease;
+}
