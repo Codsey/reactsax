@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
-import classnames from 'classnames';
-import { setComponentColor } from '../../../util/index';
-import './RsInput.styles.scss';
+import React, { useState } from "react";
+import classnames from "classnames";
+import { setComponentColor } from "../../../util/index";
+import "./RsInput.styles.scss";
 
 interface RsInputProps {
-  state?: string;
+  state?: "primary" | "success" | "danger" | "warn" | "dark";
   border?: boolean;
   label?: string;
   labelPlaceholder?: string;
@@ -15,13 +15,14 @@ interface RsInputProps {
   type?: string;
   iconClick?: any; // TODO: ADD FUNCTIONALITY TO iconClick
   loading?: boolean;
-  progress?: number | string;
-  messageType?: string;
+  shadow?: boolean;
+  progress?: number;
+  messageType?: "primary" | "success" | "danger" | "warn" | "dark";
   message?: string;
   [x: string]: any;
 }
 const RsInput = ({ ...props }: RsInputProps) => {
-  const [value, setValue] = useState('');
+  const [value, setValue] = useState("");
   const {
     state,
     border,
@@ -36,79 +37,81 @@ const RsInput = ({ ...props }: RsInputProps) => {
     iconClick,
     loading,
     progress = 0,
-    messageType,
+    messageType = "primary",
     message,
     onChange,
     ...rest
   } = props;
 
   const parentClasses = classnames(
-    'rs-input-parent',
-    { 'rs-change-color': color },
+    "rs-input-parent",
+    { "rs-change-color": color },
     [`rs-input-parent--state-${state}`],
-    { 'rs-input-parent--border': border },
-    { 'rs-input-parent--shadow': shadow },
-    { 'rs-input-content--has-label': label || labelPlaceholder }
+    { "rs-input-parent--border": border },
+    { "rs-input-parent--shadow": shadow },
+    { "rs-input-content--has-label": label || labelPlaceholder }
   );
 
   const inputContentClasses = classnames(
-    'rs-input-content',
-    { 'rs-input-content--has-color': color },
-    { 'rs-input-content--has-label': label || labelPlaceholder }
+    "rs-input-content",
+    { "rs-input-content--has-color": color },
+    { "rs-input-content--has-label": label || labelPlaceholder }
   );
 
   const inputClasses = classnames(
-    'rs-input',
-    { 'rs-input--has-icon': icon },
-    { 'rs-input--has-icon--after': iconAfter }
+    "rs-input",
+    { "rs-input--has-icon": icon },
+    { "rs-input--has-icon--after": iconAfter }
   );
 
-  const placeholderClasses = classnames('rs-input__label', {
-    'rs-input__label--hidden': value !== '' || props.value !== ''
+  const placeholderClasses = classnames("rs-input__label", {
+    "rs-input__label--hidden":
+      value !== "" || (props.value && props.value !== ""),
   });
 
   const labelClasses = classnames(
-    'rs-input__label',
-    { 'rs-input__label--placeholder': labelPlaceholder },
+    "rs-input__label",
+    { "rs-input__label--placeholder": labelPlaceholder },
     {
-      'rs-input__label--hidden':
-        value !== '' ||
-        (props.value && props.value !== '') ||
-        type === 'date' ||
-        type === 'time'
+      "rs-input__label--hidden":
+        value !== "" ||
+        (props.value && props.value !== "") ||
+        type === "date" ||
+        type === "time",
     },
-    { 'rs-input__label--label': label }
+    { "rs-input__label--label": label }
   );
 
   const iconClasses = classnames(
-    'rs-input__icon',
-    { 'rs-input__icon--after': iconAfter },
-    { 'rs-input__icon--click': iconClick }
+    "rs-input__icon",
+    { "rs-input__icon--after": iconAfter },
+    { "rs-input__icon--click": iconClick }
   );
 
   const progressClasses = classnames(
-    'rs-input__progress',
-    { 'rs-input__progress--danger': progress < 33 },
-    { 'rs-input__progress--warn': progress < 66 && progress > 33 },
-    { 'rs-input__progress--success': progress > 66 }
+    "rs-input__progress",
+    { "rs-input__progress--danger": progress < 33 },
+    { "rs-input__progress--warn": progress < 66 && progress > 33 },
+    { "rs-input__progress--success": progress > 66 }
   );
 
-  const messageClasses = classnames('rs-input__message', [
-    `rs-input__message--${messageType}`
+  const messageClasses = classnames("rs-input__message", [
+    `rs-input__message--${messageType}`,
   ]);
+  console.log(value);
   return (
     <div
       className={parentClasses}
       style={
         {
-          '--rs-color': setComponentColor(color || '')
+          "--rs-color": setComponentColor(color || ""),
         } as React.CSSProperties
       }
     >
       <div className={inputContentClasses}>
         <input
           className={inputClasses}
-          onChange={e => {
+          onChange={(e) => {
             setValue(e.target.value);
             onChange(e);
           }}
@@ -127,24 +130,24 @@ const RsInput = ({ ...props }: RsInputProps) => {
             {icon}
           </span>
         ) : null}
-        {loading ? <div className='rs-input__loading' /> : null}
-        <div className='rs-input__affects'>
-          <div className='rs-input__affects__1'></div>
-          <div className='rs-input__affects__2'></div>
-          <div className='rs-input__affects__3'></div>
-          <div className='rs-input__affects__4'></div>
+        {loading ? <div className="rs-input__loading" /> : null}
+        <div className="rs-input__affects">
+          <div className="rs-input__affects__1"></div>
+          <div className="rs-input__affects__2"></div>
+          <div className="rs-input__affects__3"></div>
+          <div className="rs-input__affects__4"></div>
         </div>
       </div>
       {progress > 0 ? (
         <div className={progressClasses}>
           <div
-            className='rs-input__progress__bar'
+            className="rs-input__progress__bar"
             style={{ width: `${progress}%` }}
           ></div>
         </div>
       ) : null}
       <div>
-        {messageType ? <div className={messageClasses}> {message}</div> : null}
+        {message ? <div className={messageClasses}> {message}</div> : null}
       </div>
     </div>
   );
