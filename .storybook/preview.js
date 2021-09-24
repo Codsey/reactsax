@@ -8,7 +8,11 @@ export const parameters = {
   },
   options: {
     storySort: {
-      order: ["Components", ["Button", "Alert", "Loading", "Input"], "Example"],
+      order: [
+        "Components",
+        ["Button", "Alert", "Loading", "Input", "Checkbox"],
+        "Example",
+      ],
     },
   },
 };
