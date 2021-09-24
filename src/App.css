@@ -95,3 +95,7 @@
   cursor: pointer;
   transition: all 0.25s ease;
 }
+
+.input-example {
+  margin: 10px;
+}

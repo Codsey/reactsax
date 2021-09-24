@@ -253,6 +253,7 @@
     padding: 0px 7px;
     transition: all 0.25s ease;
     overflow: hidden;
+    text-align: left;
 
     &--success {
       color: rs-color('success', 1);
@@ -334,13 +335,15 @@
       border-left: 2px solid transparent;
       border-right: 2px solid transparent;
       animation: rotateInputLoading 0.8s ease infinite;
-      top: 0px;
+      top: 0;
+      right: 0;
       content: '';
     }
 
     &:before {
       box-sizing: border-box;
-      top: 0px;
+      top: 0;
+      right: 0;
       position: absolute;
       width: 100%;
       height: 100%;

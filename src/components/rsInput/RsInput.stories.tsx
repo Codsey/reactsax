@@ -1,9 +1,12 @@
-import React from "react";
+import React, { useState } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 
 import RsInput from "./Base/RsInput";
 
 import "../../styles/reactsax.scss";
+import "../../App.css";
+
+import "boxicons";
 
 export default {
   title: "Components/Input",
@@ -95,8 +98,158 @@ const Template: ComponentStory<typeof RsInput> = (args) => (
   </div>
 );
 
+const InputTypesTemplate: ComponentStory<typeof RsInput> = (args) => (
+  <div className="center">
+    <div className="input-example">
+      <RsInput type="text" label="Text" {...args} />
+    </div>
+    <div className="input-example">
+      <RsInput type="password" label="Password" {...args} />
+    </div>
+    <div className="input-example">
+      <RsInput type="search" label="Search" {...args} />
+    </div>
+    <div className="input-example">
+      <RsInput type="number" label="Number" {...args} />
+    </div>
+    <div className="input-example">
+      <RsInput type="time" label="Time" {...args} />
+    </div>
+    <div className="input-example">
+      <RsInput type="date" label="Date" {...args} />
+    </div>
+  </div>
+);
+
+const ProgressInputTemplate: ComponentStory<typeof RsInput> = (args) => {
+  // const [progressPoints, setProgressPoints] = useState(0);
+  const [value, setValue] = useState("");
+
+  const handleChange = (e: any) => {
+    const { value } = e.target;
+
+    setValue(value);
+  };
+
+  const getProgress = () => {
+    let progress = 0;
+    // at least one number
+    if (/\d/.test(value)) {
+      progress += 20;
+    }
+    // at least one capital letter
+    if (/(.*[A-Z].*)/.test(value)) {
+      progress += 20;
+    }
+    // at menons a lowercase
+    if (/(.*[a-z].*)/.test(value)) {
+      progress += 20;
+    }
+    // more than 5 digits
+    if (value.length >= 6) {
+      progress += 20;
+    }
+    // at least one special character
+    if (/[^A-Za-z0-9]/.test(value)) {
+      progress += 20;
+    }
+    return progress;
+  };
+
+  return (
+    <div className="center">
+      <div className="input-example">
+        <RsInput
+          {...args}
+          value={value}
+          onChange={handleChange}
+          progress={getProgress()}
+        />
+      </div>
+    </div>
+  );
+};
+
 export const Default = Template.bind({});
 Default.args = {
   placeholder: "Name",
   onChange: () => {},
+};
+
+export const Label = Template.bind({});
+Label.args = {
+  label: "Name",
+  placeholder: "Name",
+};
+
+export const LabelPlaceholder = Template.bind({});
+LabelPlaceholder.args = {
+  labelPlaceholder: "Name",
+};
+
+export const Color = Template.bind({});
+Color.args = {
+  labelPlaceholder: "Name",
+  color: "primary",
+};
+
+export const Icon = Template.bind({});
+Icon.args = {
+  // @ts-ignore
+  icon: <box-icon name="user" type="solid" color="#eae9e9"></box-icon>,
+  labelPlaceholder: "User",
+};
+
+export const IconAfter = Template.bind({});
+IconAfter.args = {
+  labelPlaceholder: "Password",
+  // @ts-ignore
+  icon: <box-icon name="lock-alt" type="solid" color="#eae9e9"></box-icon>,
+  iconAfter: true,
+  type: "password",
+};
+
+export const Message = Template.bind({});
+Message.args = {
+  labelPlaceholder: "Password",
+  type: "password",
+  message: "Success",
+  messageType: "success",
+};
+
+export const State = Template.bind({});
+State.args = {
+  labelPlaceholder: "Password",
+  type: "password",
+  state: "primary",
+};
+
+export const Loading = Template.bind({});
+Loading.args = {
+  labelPlaceholder: "Name",
+  loading: true,
+};
+
+export const Border = Template.bind({});
+Border.args = {
+  labelPlaceholder: "Name",
+  border: true,
+  color: "warn",
+};
+
+export const Shadow = Template.bind({});
+Shadow.args = {
+  labelPlaceholder: "Name",
+  shadow: true,
+};
+
+export const InputTypes = InputTypesTemplate.bind({});
+InputTypes.args = {
+  onChange: () => {},
+};
+
+export const Progress = ProgressInputTemplate.bind({});
+Progress.args = {
+  labelPlaceholder: "Password",
+  type: "password",
 };

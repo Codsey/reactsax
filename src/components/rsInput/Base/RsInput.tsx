@@ -98,7 +98,6 @@ const RsInput = ({ ...props }: RsInputProps) => {
   const messageClasses = classnames("rs-input__message", [
     `rs-input__message--${messageType}`,
   ]);
-  console.log(value);
   return (
     <div
       className={parentClasses}
