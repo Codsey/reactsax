@@ -5,13 +5,13 @@ import './RsTooltip.styles.scss';
 import ReactDOM from 'react-dom';
 
 interface RsTooltipProps {
-  tooltip: JSX.Element | string;
+  tooltip?: JSX.Element | string;
   children: JSX.Element;
   bottom?: boolean;
   left?: boolean;
   right?: boolean;
   shadow?: boolean;
-  notArrow?: boolean;
+  noArrow?: boolean;
   square?: boolean;
   circle?: boolean;
   border?: boolean;
@@ -36,7 +36,7 @@ const RsTooltip = ({ ...props }: RsTooltipProps) => {
     left,
     right,
     shadow,
-    notArrow,
+    noArrow,
     square,
     circle,
     border,
@@ -87,7 +87,7 @@ const RsTooltip = ({ ...props }: RsTooltipProps) => {
     { left: left },
     { right: right },
     { shadow: shadow },
-    { notArrow: notArrow },
+    { notArrow: noArrow },
     { square: square },
     { circle: circle },
     { border: border },
@@ -117,6 +117,7 @@ const RsTooltip = ({ ...props }: RsTooltipProps) => {
         }
       }}
     >
+      
       {activeTooltip ? (
         ReactDOM.createPortal(
           <div

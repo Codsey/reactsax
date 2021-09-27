@@ -1,16 +1,22 @@
-import React from 'react';
-import RsNotification from './RsNotification';
-import ReactDOM from 'react-dom';
+import React from "react";
+import RsNotification from "./RsNotification";
+import ReactDOM from "react-dom";
 
 interface NotificationParams {
   title?: string;
   text?: string;
-  position?: string;
+  notificationPosition?:
+    | "bottom-right"
+    | "top-right"
+    | "top-center"
+    | "top-left"
+    | "bottom-left"
+    | "bottom-center";
   color?: string;
   border?: string;
   icon?: string | JSX.Element;
   duration?: number;
-  onClick?: any;
+  pointer?: boolean;
   buttonClose?: boolean;
   flat?: boolean;
   onDestroy?: any;
@@ -38,7 +44,8 @@ const Notification = (params: NotificationParams) => {
     notPadding,
     color,
     duration = 4,
-    position
+    notificationPosition,
+    pointer,
   } = params;
   const notification = (
     <RsNotification
@@ -56,22 +63,23 @@ const Notification = (params: NotificationParams) => {
       color={color}
       duration={duration}
       closeButton
-      notificationPosition={position}
+      pointer={pointer}
+      notificationPosition={notificationPosition}
     ></RsNotification>
   );
 
-  if (!document.querySelector('.notification-container')) {
-    const container = document.createElement('div');
-    container.className = 'notification-container';
+  if (!document.querySelector(".notification-container")) {
+    const container = document.createElement("div");
+    container.className = "notification-container";
     document.body.appendChild(container);
   }
 
   ReactDOM.render(
     notification,
-    document.querySelector('.notification-container')
+    document.querySelector(".notification-container")
   );
 
-  const container = document.querySelector('.notification-container');
+  const container = document.querySelector(".notification-container");
   document.body.removeChild(container as Element);
 };
 

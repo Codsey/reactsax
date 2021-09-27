@@ -1,19 +1,27 @@
-import React, { useEffect, useState } from 'react';
-import classnames from 'classnames';
-import './RsNotification.styles.scss';
-import RsIconClose from '../../../icons/close';
-import { CSSTransition } from 'react-transition-group';
-import { setComponentColor } from '../../../util/index';
+import React, { useEffect, useState } from "react";
+import classnames from "classnames";
+import "./RsNotification.styles.scss";
+import RsIconClose from "../../../icons/close";
+import { CSSTransition } from "react-transition-group";
+import { setComponentColor } from "../../../util/index";
+
+// TODO: Add Progress
 
 interface RsNotificationProps {
   title?: string;
   text?: string;
-  notificationPosition?: string;
+  notificationPosition?:
+    | "bottom-right"
+    | "top-right"
+    | "top-center"
+    | "top-left"
+    | "bottom-left"
+    | "bottom-center";
   color?: string;
   border?: string;
   icon?: string | JSX.Element;
   duration: number;
-  onClick?: any;
+  pointer?: boolean;
   closeButton?: boolean;
   flat?: boolean;
   sticky?: boolean;
@@ -33,7 +41,7 @@ const RsNotification = ({ ...props }: RsNotificationProps) => {
     color,
     border,
     icon,
-    onClick,
+    pointer,
     flat,
     sticky,
     square,
@@ -46,23 +54,23 @@ const RsNotification = ({ ...props }: RsNotificationProps) => {
     text,
     closeButton,
     duration,
-    content
+    content,
   } = props;
 
   useEffect(() => {
     const parent: HTMLElement =
       document.querySelector(
-        `.rs-notification-parent--${notificationPosition || 'bottom-right'}`
-      ) || document.createElement('div');
+        `.rs-notification-parent--${notificationPosition || "bottom-right"}`
+      ) || document.createElement("div");
 
     if (
       !document.querySelector(
-        `.rs-notification-parent--${notificationPosition || 'bottom-right'}`
+        `.rs-notification-parent--${notificationPosition || "bottom-right"}`
       )
     ) {
-      parent.className = 'rs-notification-parent';
+      parent.className = "rs-notification-parent";
       parent.classList.add(
-        `rs-notification-parent--${notificationPosition || 'bottom-right'}`
+        `rs-notification-parent--${notificationPosition || "bottom-right"}`
       );
     }
     if (notificationRef.current) {
@@ -82,8 +90,8 @@ const RsNotification = ({ ...props }: RsNotificationProps) => {
 
   const destroy = () => {
     notificationRef.current.classList.add(
-      'notification-leave-active',
-      'notification-leave-to'
+      "notification-leave-active",
+      "notification-leave-to"
     );
     const parent = notificationRef.current.parentNode;
     if (parent.childNodes.length === 1) {
@@ -97,9 +105,10 @@ const RsNotification = ({ ...props }: RsNotificationProps) => {
   };
 
   const forceDestroy = () => {
+    console.log(notificationRef);
     notificationRef.current.classList.add(
-      'notification-leave-active',
-      'notification-leave-to'
+      "notification-leave-active",
+      "notification-leave-to"
     );
   };
 
@@ -133,20 +142,21 @@ const RsNotification = ({ ...props }: RsNotificationProps) => {
   };
 
   const notificatinClasses = classnames(
-    'rs-notification',
-    { 'rs-notification--color': color },
-    { 'rs-notification--border': border },
-    { 'rs-notification--icon': icon },
-    { 'rs-notoficiation--onClick': onClick },
-    { 'rs-notification--flat': flat },
-    { 'rs-notification--sticky': sticky },
-    { 'rs-notification--square': square },
-    { 'rs-notification--width-all': width === '100%' },
-    { 'rs-notification--width-auto': width === 'auto' },
-    { 'rs-notification--loading': loading },
-    { 'rs-notification--notPadding': notPadding },
+    "rs-notification",
+    { "rs-notification--color": color },
+    { "rs-notification--border": border },
+    { "rs-notification--icon": icon },
+    { "rs-notification--onClick": pointer },
+    { "rs-notification--flat": flat },
+    { "rs-notification--sticky": sticky },
+    { "rs-notification--square": square },
+    { "rs-notification--width-all": width === "100%" },
+    { "rs-notification--width-auto": width === "auto" },
+    { "rs-notification--loading": loading },
+    { "rs-notification--notPadding": notPadding },
     classNotification
   );
+  console.log(notificationRef);
   return (
     <CSSTransition
       timeout={100}
@@ -156,8 +166,8 @@ const RsNotification = ({ ...props }: RsNotificationProps) => {
       mountOnEnter
       unmountOnExit
       classNames={{
-        enter: 'notification-enter',
-        enterActive: 'notification-enter-active'
+        enter: "notification-enter",
+        enterActive: "notification-enter-active",
       }}
     >
       {isVisible ? (
@@ -166,46 +176,43 @@ const RsNotification = ({ ...props }: RsNotificationProps) => {
           ref={notificationRef}
           style={
             {
-              '--rs-color': setComponentColor(color || ''),
-              '--rs-border': setComponentColor(border || '')
+              "--rs-color": setComponentColor(color || ""),
+              "--rs-border": setComponentColor(border || ""),
             } as React.CSSProperties
           }
           onMouseEnter={() => handleMouseEnter()}
           onMouseLeave={() => handleMouseLeave()}
         >
           {!loading && icon ? (
-            <div className='rs-notification__icon'>{icon}</div>
+            <div className="rs-notification__icon">{icon}</div>
           ) : null}
           {!loading && !content ? (
-            <div className='rs-notification__content'>
+            <div className="rs-notification__content">
               {title ? (
-                <div className='rs-notification__content__header'>
+                <div className="rs-notification__content__header">
                   <h4>{title}</h4>
                 </div>
               ) : null}
               {text ? (
-                <div className='rs-notification__content__text'>
+                <div className="rs-notification__content__text">
                   <p>{text}</p>
                 </div>
               ) : null}
             </div>
           ) : null}
           {!loading && content ? (
-            <div className='rs-notification__content'>
-              <div className='rs-notification__content__header'>{title}</div>
-              <div className='rs-notification__content__text'>{text}</div>
+            <div className="rs-notification__content">
+              <div className="rs-notification__content__header">{title}</div>
+              <div className="rs-notification__content__text">{text}</div>
               {content}
             </div>
           ) : null}
           {closeButton ? (
-            <button
-              className='rs-notification__close'
-              onClick={() => forceDestroy()}
-            >
-              <RsIconClose hover='less' />{' '}
+            <button className="rs-notification__close" onClick={forceDestroy}>
+              <RsIconClose hover="less" />
             </button>
           ) : null}
-          {loading ? <div className='rs-notification__loading'> </div> : null}
+          {loading ? <div className="rs-notification__loading"> </div> : null}
         </div>
       ) : (
         <React.Fragment />
