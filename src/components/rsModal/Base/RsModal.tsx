@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
-import classnames from 'classnames';
-import RsIconClose from '../../../icons/close';
-import './RsModal.styles.scss';
-import { CSSTransition } from 'react-transition-group';
-import ReactDOM from 'react-dom';
+import React, { useEffect, useState } from "react";
+import classnames from "classnames";
+import RsIconClose from "../../../icons/close";
+import "./RsModal.styles.scss";
+import { CSSTransition } from "react-transition-group";
+import ReactDOM from "react-dom";
 
 interface RsModalProps {
   active?: boolean;
@@ -43,14 +43,14 @@ const RsModal = ({ ...props }: RsModalProps) => {
     children,
     footer,
     preventClose,
-    handleClose
+    handleClose,
   } = props;
 
   useEffect(() => {
-    window.addEventListener('keydown', handleEsc);
-    if (overflowHidden && active) document.body.style.overflow = 'hidden';
+    window.addEventListener("keydown", handleEsc);
+    if (overflowHidden && active) document.body.style.overflow = "hidden";
 
-    return () => window.removeEventListener('keydown', handleEsc);
+    return () => window.removeEventListener("keydown", handleEsc);
   });
 
   const handleEsc = (e: any) => {
@@ -61,12 +61,12 @@ const RsModal = ({ ...props }: RsModalProps) => {
 
   const handleInternalClose = (el: Element) => {
     if (el) {
-      el.classList.add('rs-dialog-leave-active');
-      el.classList.add('rs-dialog-leave-to');
+      el.classList.add("rs-dialog-leave-active");
+      el.classList.add("rs-dialog-leave-to");
       setTimeout(() => {
         if (handleClose) {
           if (overflowHidden) {
-            document.body.style.overflow = '';
+            document.body.style.overflow = "";
           }
           handleClose();
         }
@@ -75,25 +75,25 @@ const RsModal = ({ ...props }: RsModalProps) => {
   };
 
   const dialogContentClasses = classnames(
-    'rs-dialog-content',
+    "rs-dialog-content",
     { blur: blur },
     { fullScreen: fullScreen }
   );
 
   const dialogClasses = classnames(
-    'rs-dialog',
-    { 'rs-dialog--fullScreen': fullScreen },
-    { 'rs-dialog--rebound': rebound },
-    { 'rs-dialog--notPadding': notPadding },
-    { 'rs-dialog--square': square },
-    { 'rs-dialog--autoWidth': autoWidth },
-    { 'rs-dialog--scroll': scroll },
-    { 'rs-dialog--loading': loading },
-    { 'rs-dialog--notCenter': notCenter }
+    "rs-dialog",
+    { "rs-dialog--fullScreen": fullScreen },
+    { "rs-dialog--rebound": rebound },
+    { "rs-dialog--notPadding": notPadding },
+    { "rs-dialog--square": square },
+    { "rs-dialog--autoWidth": autoWidth },
+    { "rs-dialog--scroll": scroll },
+    { "rs-dialog--loading": loading },
+    { "rs-dialog--notCenter": notCenter }
   );
 
-  const dialogChildrenClasses = classnames('rs-dialog__content', {
-    notFooter: !footer
+  const dialogChildrenClasses = classnames("rs-dialog__content", {
+    notFooter: !footer,
   });
 
   return (
@@ -103,7 +103,7 @@ const RsModal = ({ ...props }: RsModalProps) => {
       mountOnEnter
       unmountOnExit
       classNames={{
-        enterActive: 'rs-dialog-enter-active'
+        enterActive: "rs-dialog-enter-active",
       }}
     >
       <React.Fragment>
@@ -113,11 +113,11 @@ const RsModal = ({ ...props }: RsModalProps) => {
               className={dialogContentClasses}
               ref={dialogRef}
               onClick={(e: any) => {
-                if (!e.target.closest('.rs-dialog') && !preventClose) {
+                if (!e.target.closest(".rs-dialog") && !preventClose) {
                   handleInternalClose(dialogRef.current);
                 }
 
-                if (preventClose && !e.target.closest('.rs-dialog')) {
+                if (preventClose && !e.target.closest(".rs-dialog")) {
                   setRebound(true);
                   setTimeout(() => {
                     setRebound(false);
@@ -127,21 +127,21 @@ const RsModal = ({ ...props }: RsModalProps) => {
             >
               <div className={dialogClasses}>
                 {loading ? (
-                  <div className='rs-dialog__loading'>
-                    <div className='rs-dialog__loading__load'></div>
+                  <div className="rs-dialog__loading">
+                    <div className="rs-dialog__loading__load"></div>
                   </div>
                 ) : null}
                 {!notClose ? (
                   <button
-                    className='rs-dialog__close'
+                    className="rs-dialog__close"
                     onClick={() => handleInternalClose(dialogRef.current)}
                   >
-                    <RsIconClose hover='x' />
+                    <RsIconClose hover="x" />
                   </button>
                 ) : null}
-                <header className='rs-dialog__header'>{header}</header>
+                <header className="rs-dialog__header">{header}</header>
                 <div className={dialogChildrenClasses}>{children}</div>
-                <footer className='rs-dialog__footer'>{footer}</footer>
+                <footer className="rs-dialog__footer">{footer}</footer>
               </div>
             </div>,
             document.body
