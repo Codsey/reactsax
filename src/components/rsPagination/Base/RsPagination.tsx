@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
-import classnames from 'classnames';
-import RsIconArrow from '../../../icons/arrow';
-import './RsPagination.styles.scss';
-import { setComponentColor } from '../../../util/index';
+import React, { useState, useEffect } from "react";
+import classnames from "classnames";
+import RsIconArrow from "../../../icons/arrow";
+import "./RsPagination.styles.scss";
+import { setComponentColor } from "../../../util/index";
+
+// TODO: REMOVE useEffect and create a new function or buttonPrev
 
 interface RsPaginationProps {
   buttonsDotted?: boolean;
@@ -53,7 +55,7 @@ const RsPagination = ({ ...props }: RsPaginationProps) => {
     loadingItems = [],
     dottedNumber = 5,
     infinite,
-    color
+    color,
   } = props;
 
   useEffect(() => {
@@ -81,14 +83,35 @@ const RsPagination = ({ ...props }: RsPaginationProps) => {
       if (paginationRef.current) {
         setActiveClassMove(true);
         const offsetLeftPagination = paginationRef.current.offsetLeft;
-
-        setLeftActive(
-          buttonRefs.current[`btn${value}`].offsetLeft + offsetLeftPagination
-        );
+        if (length) {
+          setLeftActive(
+            buttonRefs.current[`btn${value}`].offsetLeft + offsetLeftPagination
+          );
+        }
         setTimeout(() => {
           setActiveClassMove(false);
         }, 300);
       }
+    }
+  };
+
+  const setNextValue = () => {
+    let newValue;
+    if (disabledItems.length > 0 || loadingItems.length > 0) {
+      newValue = value + 1;
+      while (
+        disabledItems.includes(newValue) ||
+        loadingItems.includes(newValue)
+      ) {
+        newValue++;
+      }
+      setValue(newValue);
+      if (infinite && value === length) {
+        setValue(1);
+      }
+    } else {
+      newValue = value + 1;
+      setValue(newValue);
     }
   };
 
@@ -117,9 +140,9 @@ const RsPagination = ({ ...props }: RsPaginationProps) => {
     return loadingItems.indexOf(item) !== -1;
   };
 
-  const renderDotted = (text: string = '...', index?: number) => {
-    const dottedClasses = classnames('rs-pagination__dotted', {
-      next: value === length ? false : text === '...>'
+  const renderDotted = (text: string = "...", index?: number) => {
+    const dottedClasses = classnames("rs-pagination__dotted", {
+      next: value === length ? false : text === "...>",
     });
 
     return (
@@ -127,9 +150,7 @@ const RsPagination = ({ ...props }: RsPaginationProps) => {
         className={dottedClasses}
         key={index}
         onClick={() => {
-          let newVal = (value === length
-          ? false
-          : text === '...>')
+          let newVal = (value === length ? false : text === "...>")
             ? value + dottedNumber
             : value - dottedNumber;
           if (newVal > length) {
@@ -140,8 +161,8 @@ const RsPagination = ({ ...props }: RsPaginationProps) => {
           setValue(newVal);
         }}
       >
-        <span className='dotted'>...</span>
-        <span className='con-arrows'>
+        <span className="dotted">...</span>
+        <span className="con-arrows">
           <RsIconArrow />
           <RsIconArrow />
         </span>
@@ -151,7 +172,7 @@ const RsPagination = ({ ...props }: RsPaginationProps) => {
 
   const renderButton = (NumberPage: number = 1, index: number) => {
     const buttonClasses = classnames(
-      'rs-pagination__button',
+      "rs-pagination__button",
       { active: NumberPage === value },
       { prevActive: NumberPage === value - 1 },
       { nextActive: NumberPage === value + 1 },
@@ -160,12 +181,12 @@ const RsPagination = ({ ...props }: RsPaginationProps) => {
     );
     return (
       <button
-        ref={el => (buttonRefs.current[`btn${NumberPage}`] = el)}
+        ref={(el) => (buttonRefs.current[`btn${NumberPage}`] = el)}
         className={buttonClasses}
         onClick={() => setValue(NumberPage)}
         key={index}
       >
-        {buttonsDotted ? '' : `${NumberPage}`}
+        {buttonsDotted ? "" : `${NumberPage}`}
       </button>
     );
   };
@@ -173,7 +194,7 @@ const RsPagination = ({ ...props }: RsPaginationProps) => {
   const renderButtons = (array: any) => {
     const buttons: any[] = [];
     array.forEach((item: any, index: number) => {
-      if (item === '...>' || item === '<...') {
+      if (item === "...>" || item === "<...") {
         buttons.push(renderDotted(item, index));
       } else {
         buttons.push(renderButton(item, index));
@@ -202,16 +223,16 @@ const RsPagination = ({ ...props }: RsPaginationProps) => {
       const end = value + prevRange - 2 - even;
       return renderButtons([
         1,
-        '<...',
+        "<...",
         ...getButtons(start, end),
-        '...>',
-        length
+        "...>",
+        length,
       ]);
     } else if (!buttonsDotted && length > 6) {
       return renderButtons([
         ...getButtons(1, prevRange),
-        '...>',
-        ...getButtons(nextRange, pagLength)
+        "...>",
+        ...getButtons(nextRange, pagLength),
       ]);
     } else if (buttonsDotted || length <= 6) {
       return renderButtons([...getButtons(1, length)]);
@@ -220,23 +241,23 @@ const RsPagination = ({ ...props }: RsPaginationProps) => {
   };
 
   const paginationContentClasses = classnames(
-    'rs-pagination-content',
+    "rs-pagination-content",
     { buttonsDotted: buttonsDotted },
     { circle: circle },
     { square: square },
     { disabled: disabled },
     { notMargin: notMargin },
-    { 'rs-change-color': color }
+    { "rs-change-color": color }
   );
 
-  const paginationActiveClasses = classnames('rs-pagination__active', {
-    move: activeClassMove
+  const paginationActiveClasses = classnames("rs-pagination__active", {
+    move: activeClassMove,
   });
   return (
     <div
       style={
         {
-          '--rs-color': setComponentColor(color || 'primary')
+          "--rs-color": setComponentColor(color || "primary"),
         } as React.CSSProperties
       }
       className={paginationContentClasses}
@@ -246,12 +267,12 @@ const RsPagination = ({ ...props }: RsPaginationProps) => {
           className={paginationActiveClasses}
           style={{ left: `${leftActive}px` }}
         >
-          {buttonsDotted ? '' : value}
+          {buttonsDotted ? "" : value}
         </div>
       ) : null}
       {!notArrows ? (
         <button
-          className='rs-pagination__arrow prev'
+          className="rs-pagination__arrow prev"
           disabled={infinite ? false : value <= 1}
           onClick={() => {
             const newVal = value - 1;
@@ -266,33 +287,35 @@ const RsPagination = ({ ...props }: RsPaginationProps) => {
         </button>
       ) : null}
       {children ? (
-        <div className='rs-pagination__slot'> {children} </div>
+        <div className="rs-pagination__slot"> {children} </div>
       ) : null}
       {!onlyArrows && !children ? (
-        <div ref={paginationRef} className='rs-pagination'>
-          {getPages().map(page => page)}
+        <div ref={paginationRef} className="rs-pagination">
+          {getPages().map((page) => page)}
         </div>
       ) : null}
       {!notArrows ? (
         <button
-          className='rs-pagination__arrow next'
+          className="rs-pagination__arrow next"
           disabled={infinite ? false : value >= length}
           onClick={() => {
-            const newVal = value + 1;
-            if (newVal <= length) {
-              setValue(newVal);
-            } else if (infinite) {
-              setValue(1);
-            }
+            // const newVal = value + 1;
+
+            // if (newVal <= length) {
+            //   setValue(newVal);
+            // } else if (infinite) {
+            //   setValue(1);
+            // }
+            setNextValue();
           }}
         >
           {arrowNext ? arrowNext : <RsIconArrow />}
         </button>
       ) : null}
       {progress ? (
-        <div className='rs-pagination__progress'>
+        <div className="rs-pagination__progress">
           <div
-            className='progress'
+            className="progress"
             style={{ width: `${getProgress()}%` }}
           ></div>
         </div>

@@ -8,7 +8,6 @@ import RsCheckbox from "../rsCheckbox/Base/RsCheckbox";
 
 import "../../App.css";
 import "boxicons";
-import { transpileModule } from "typescript";
 
 export default {
   title: "Components/Modal",
