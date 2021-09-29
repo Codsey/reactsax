@@ -93,6 +93,82 @@ const Template: ComponentStory<typeof RsPagination> = (args) => (
 export const Default = Template.bind({});
 Default.args = {
   length: 10,
-  max: 7,
-  loadingItems: [3, 4],
+};
+
+export const Color = Template.bind({});
+Color.args = {
+  length: 10,
+  color: "#eb4034",
+};
+
+export const Disabled = Template.bind({});
+Disabled.args = {
+  length: 10,
+  disabled: true,
+};
+
+export const NotArrows = Template.bind({});
+NotArrows.args = {
+  length: 10,
+  notArrows: true,
+};
+
+export const OnlyArrows = Template.bind({});
+OnlyArrows.args = {
+  length: 10,
+  onlyArrows: true,
+};
+
+export const Circle = Template.bind({});
+Circle.args = {
+  length: 10,
+  circle: true,
+};
+
+export const Square = Template.bind({});
+Square.args = {
+  length: 10,
+  square: true,
+};
+
+export const ButtonsDotted = Template.bind({});
+ButtonsDotted.args = {
+  length: 10,
+  buttonsDotted: true,
+};
+
+export const DisabledItems = Template.bind({});
+DisabledItems.args = {
+  length: 10,
+  disabledItems: [3, 6],
+};
+
+export const LoadingItems = Template.bind({});
+LoadingItems.args = {
+  length: 10,
+  loadingItems: [3, 6],
+};
+
+export const NotMargin = Template.bind({});
+NotMargin.args = {
+  length: 10,
+  notMargin: true,
+};
+
+export const Progress = Template.bind({});
+Progress.args = {
+  length: 10,
+  progress: true,
+};
+
+export const DottedNumber = Template.bind({});
+DottedNumber.args = {
+  length: 100,
+  dottedNumber: 10,
+};
+
+export const Infinite = Template.bind({});
+Infinite.args = {
+  length: 10,
+  infinite: true,
 };

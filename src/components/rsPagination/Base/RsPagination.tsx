@@ -106,12 +106,12 @@ const RsPagination = ({ ...props }: RsPaginationProps) => {
         newValue++;
       }
       setValue(newValue);
-      if (infinite && value === length) {
-        setValue(1);
-      }
     } else {
       newValue = value + 1;
       setValue(newValue);
+      if (infinite && value === length) {
+        setValue(1);
+      }
     }
   };
 
