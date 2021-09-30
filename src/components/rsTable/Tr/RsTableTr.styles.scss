@@ -1,0 +1,134 @@
+@import "../../../styles/mixins";
+
+.isMultipleSelected {
+  .rs-table__tr {
+    .rs-table__td {
+      border-radius: 0px !important;
+    }
+  }
+}
+
+.rs-table__tr {
+  padding: 5px;
+  border: 0px;
+
+  &.expand {
+    cursor: pointer;
+  }
+
+  &.rs-change-color {
+    .rs-table__td {
+      background: rs-color("color", 0.1) !important;
+      color: rs-color("color", 1) !important;
+
+      &:hover {
+        background: rs-color("color", 0.2) !important;
+      }
+    }
+  }
+
+  &:first-of-type {
+    .rs-table__td {
+      &:last-child {
+        border-radius: 0px 0px 15px 0px;
+      }
+
+      &:first-child {
+        border-radius: 0px 0px 0px 15px;
+      }
+    }
+  }
+
+  &.isExpand:first-of-type {
+    .rs-table__td {
+      background: rs-color("gray-1") !important;
+      border-radius: 0px;
+    }
+  }
+
+  &.isExpand:not(:first-of-type) {
+    .rs-table__td {
+      background: rs-color("gray-1") !important;
+
+      &:last-child {
+        border-radius: 0px 15px 0px 0px;
+      }
+
+      &:first-child {
+        border-radius: 15px 0px 0px 0px;
+      }
+    }
+
+    + .rs-table__tr__expand {
+      td {
+        border-radius: 0px 0px 15px 15px !important;
+      }
+    }
+  }
+
+  &.selected {
+    .rs-table__td {
+      background: rs-color("color", 0.1) !important;
+      color: rs-color("color", 1) !important;
+    }
+  }
+
+  .rs-table__td {
+    background: rs-color("bg", 0.1);
+    color: rs-color("bg", 1);
+  }
+
+  &.rs-change-color {
+    &:hover {
+      .rs-table__td {
+        background: rs-color("color", 0.2) !important;
+      }
+    }
+  }
+
+  &:hover {
+    .rs-table__td {
+      background: rs-color("gray-1");
+    }
+  }
+}
+
+.rs-table__tr__expand {
+  transition: all 0.25s ease;
+  border: 0px;
+
+  td {
+    transition: all 0.25s ease;
+    padding: 0px;
+    background: rs-color("gray-1") !important;
+    border: 0px;
+
+    .rs-table__expand__td__content {
+      overflow: hidden;
+      display: block;
+      transition: all 0.25s ease;
+
+      &__sub {
+        padding: 10px 15px;
+        z-index: 1;
+        position: relative;
+      }
+    }
+  }
+}
+
+.fade-expand-enter-active,
+.fade-expand-leave-active {
+  transition: all 0.25s ease;
+}
+
+.fade-expand-enter,
+.fade-expand-leave-to {
+  opacity: 0;
+
+  td {
+    .rs-table__expand__td__content {
+      height: 0px !important;
+    }
+  }
+}
