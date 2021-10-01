@@ -9,9 +9,7 @@ import RsTableTr from "./Tr/RsTableTr";
 export default {
   title: "Components/Table",
   component: RsTable,
-  argTypes: {
-    backgroundColor: { control: "color" },
-  },
+  argTypes: {},
 } as ComponentMeta<typeof RsTable>;
 
 const Template: ComponentStory<typeof RsTable> = (args) => (
@@ -42,6 +40,3 @@ const Template: ComponentStory<typeof RsTable> = (args) => (
 );
 
 export const Default = Template.bind({});
-Default.args = {
-  striped: true,
-};
