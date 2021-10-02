@@ -95,5 +95,17 @@ export const Default = Template.bind({});
 Default.args = {
   color: "dark",
   textWhite: true,
-  // shadowScroll: true,
+};
+
+export const Color = Template.bind({});
+Color.args = {
+  color: "#b300bf",
+  textWhite: true,
+};
+
+export const Square = Template.bind({});
+Square.args = {
+  color: "dark",
+  textWhite: true,
+  square: true,
 };
