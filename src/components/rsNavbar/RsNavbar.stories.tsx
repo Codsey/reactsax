@@ -6,6 +6,7 @@ import RsNavbarItem from "./Item/RsNavbarItem";
 import RsButton from "../rsButton/Base/RsButton";
 
 import { ReactComponent as ReactLogo } from "../../assets/images/react-logo.svg";
+import RsNavbarGroup from "./Group/RsNavbarGroup";
 
 export default {
   title: "Components/Navbar",
@@ -65,6 +66,11 @@ export default {
         defaultValue: { summary: false },
       },
     },
+    group: {
+      description:
+        "You can use the Group Element to add a dropdown in the navbar (Check the example below)",
+      control: { disable: true },
+    },
   },
 } as ComponentMeta<typeof RsNavbar>;
 
@@ -78,6 +84,38 @@ const Template: ComponentStory<typeof RsNavbar> = (args) => (
         <RsNavbarItem active>Guide</RsNavbarItem>
         <RsNavbarItem>Documents</RsNavbarItem>
         <RsNavbarItem>Components</RsNavbarItem>
+        <RsNavbarItem>License</RsNavbarItem>
+      </div>
+      <div className="right-nav-item">
+        <RsButton flat={true}>Login</RsButton>
+        <RsButton>Get Started</RsButton>
+      </div>
+    </RsNavbar>
+    <div className="square">
+      <div className="child">child 1</div>
+    </div>
+  </div>
+);
+
+const GroupTemplate: ComponentStory<typeof RsNavbar> = (args) => (
+  <div className="example-nav">
+    <RsNavbar {...args}>
+      <RsNavbarItem>
+        <ReactLogo />
+      </RsNavbarItem>
+      <div className="center-nav-item">
+        <RsNavbarGroup title={"Guide"}>
+          <RsNavbarItem active>Group Item</RsNavbarItem>
+          <RsNavbarItem>Group Item </RsNavbarItem>
+          <RsNavbarItem>Group Item </RsNavbarItem>
+          <RsNavbarItem>Group Item </RsNavbarItem>
+        </RsNavbarGroup>
+        <RsNavbarGroup title={"Group Item 2"}>
+          <RsNavbarItem>Item 1</RsNavbarItem>
+          <RsNavbarItem>Item 2 </RsNavbarItem>
+          <RsNavbarItem>Item 3 </RsNavbarItem>
+          <RsNavbarItem>Item 4 </RsNavbarItem>
+        </RsNavbarGroup>
         <RsNavbarItem>License</RsNavbarItem>
       </div>
       <div className="right-nav-item">
@@ -105,6 +143,13 @@ Color.args = {
 
 export const Square = Template.bind({});
 Square.args = {
+  color: "dark",
+  textWhite: true,
+  square: true,
+};
+
+export const Group = GroupTemplate.bind({});
+Group.args = {
   color: "dark",
   textWhite: true,
   square: true,
