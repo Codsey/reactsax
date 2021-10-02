@@ -137,3 +137,49 @@
 .con-form .rs-input-content .rs-input {
   width: 100%;
 }
+
+.example-nav {
+  background: #f0f0f0 !important;
+  padding: 0 !important;
+  position: relative;
+  overflow: hidden;
+}
+
+.square,
+.square .child {
+  height: 400px;
+  width: 100%;
+}
+
+.square {
+  position: relative;
+  overflow: auto;
+}
+
+.square .child {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.center-nav-item {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0px 15px;
+  box-sizing: border-box;
+  min-height: 44px;
+  justify-content: center;
+}
+
+.right-nav-item {
+  width: 100%;
+  position: relative;
+  display: flex;
+  align-items: center;
+  padding: 0px 15px;
+  box-sizing: border-box;
+  min-height: 44px;
+  justify-content: flex-end;
+}

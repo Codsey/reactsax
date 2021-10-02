@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import classnames from "classnames";
 
 import "./RsTable.styles.scss";
@@ -6,8 +6,8 @@ import "./RsTable.styles.scss";
 const RsTable = ({ ...props }) => {
   const theadRef: React.RefObject<HTMLTableSectionElement> = React.createRef();
 
-  const [value, setValue] = useState("");
-  const [colspan, setColspan] = useState(0);
+  // const [value, setValue] = useState("");
+  // const [colspan, setColspan] = useState(0);
 
   const {
     header,
@@ -20,7 +20,7 @@ const RsTable = ({ ...props }) => {
 
   const tableDivClasses = classnames(
     "rs-table",
-    { isSelectedValue: value },
+    // { isSelectedValue: value },
     { striped: striped },
     { isMultipleSelected: isMultipleSelected }
   );
@@ -38,9 +38,7 @@ const RsTable = ({ ...props }) => {
           {notFound ? (
             <tbody className="rs-table_not-found">
               <tr>
-                <td colSpan={colspan}>
-                  {notFound || "No matching records found"}
-                </td>
+                <td>{notFound || "No matching records found"}</td>
               </tr>
             </tbody>
           ) : null}
