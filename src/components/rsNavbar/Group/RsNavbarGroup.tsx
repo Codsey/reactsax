@@ -1,7 +1,5 @@
 import React from "react";
 
-import classnames from "classnames";
-
 import "./RsNavbarGroup.styles.scss";
 
 const RsNavbarGroup = ({ ...props }) => {

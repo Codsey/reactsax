@@ -23,6 +23,10 @@
   margin: 10px;
 }
 
+.center > * {
+  text-align: left;
+}
+
 .rs-col {
   padding: 10px;
   text-align: center;
