@@ -187,3 +187,9 @@
   min-height: 44px;
   justify-content: flex-end;
 }
+
+.hidden {
+  overflow: hidden;
+  position: relative;
+  min-height: 600px;
+}
