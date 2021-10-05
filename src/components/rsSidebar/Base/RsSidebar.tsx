@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 import classnames from "classnames";
 
@@ -21,9 +21,12 @@ interface RsSidebarProps {
   children?: React.ReactNode;
   footer?: JSX.Element;
   color?: string;
+  reduce?: boolean;
 }
 
-const RsSidebar = ({ ...props }) => {
+const RsSidebar = ({ ...props }: RsSidebarProps) => {
+  const SidebarRef: React.RefObject<HTMLDivElement> = React.createRef();
+
   const {
     open,
     notLineActive,
@@ -39,9 +42,20 @@ const RsSidebar = ({ ...props }) => {
     children,
     footer,
     color = "",
+    reduce,
   } = props;
 
-  const [reduceInternal, setReduceInternal] = useState(false);
+  const [reduceInternal, setReduceInternal] = useState(reduce);
+  const staticWidth = "260px";
+
+  useEffect(() => {
+    const el = SidebarRef.current;
+    if (reduceInternal && el) {
+      el.style.width = "50px";
+    } else if (el && !reduceInternal) {
+      el.style.width = staticWidth;
+    }
+  }, [reduceInternal]);
 
   const SidebarContentClasses = classnames(
     "rs-sidebar-content",
@@ -59,19 +73,20 @@ const RsSidebar = ({ ...props }) => {
   return (
     <div
       className={SidebarContentClasses}
+      ref={SidebarRef}
       onMouseEnter={() => {
-        if (hoverExpand) {
+        if (hoverExpand && reduce) {
           setReduceInternal(false);
         }
       }}
       onMouseLeave={() => {
-        if (hoverExpand) {
+        if (hoverExpand && reduce) {
           setReduceInternal(true);
         }
       }}
       style={
         {
-          "--rs-color": setComponentColor(color || ""),
+          "--rs-background": setComponentColor(color || ""),
         } as React.CSSProperties
       }
     >

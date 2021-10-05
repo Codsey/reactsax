@@ -177,9 +177,62 @@ const FooterContent = () => {
 export const Default = Template.bind({});
 Default.args = {
   absolute: true,
-  //   color: "primary",
+  color: "primary",
   textWhite: true,
   logo: <ReactLogo />,
   open: true,
   footer: <FooterContent />,
+  // reduce: true,
+  // hoverExpand: true,
+};
+
+export const Reduce = Template.bind({});
+Reduce.args = {
+  absolute: true,
+  color: "primary",
+  textWhite: true,
+  logo: <ReactLogo />,
+  open: true,
+  footer: <FooterContent />,
+  reduce: true,
+};
+
+export const HoverExpand = Template.bind({});
+HoverExpand.args = {
+  absolute: true,
+  color: "primary",
+  textWhite: true,
+  logo: <ReactLogo />,
+  open: true,
+  footer: <FooterContent />,
+  reduce: true,
+  hoverExpand: true,
+};
+
+export const Color = Template.bind({});
+Color.args = {
+  absolute: true,
+  color: "#cf1597",
+  textWhite: true,
+  logo: <ReactLogo />,
+  open: true,
+  footer: <FooterContent />,
+};
+
+export const Right = Template.bind({});
+Right.args = {
+  absolute: true,
+  logo: <ReactLogo />,
+  open: true,
+  footer: <FooterContent />,
+  right: true,
+};
+
+export const square = Template.bind({});
+square.args = {
+  absolute: true,
+  logo: <ReactLogo />,
+  open: true,
+  footer: <FooterContent />,
+  square: true,
 };
