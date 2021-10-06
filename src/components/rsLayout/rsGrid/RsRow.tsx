@@ -1,32 +1,49 @@
-import React, { ReactNode } from 'react';
-import './RsGrid.styles.scss';
+import React, { ReactNode } from "react";
+import "./RsGrid.styles.scss";
 
 interface RsRowProps {
-  justifyContent?: string;
-  alignItems?: string;
+  justifyContent?:
+    | "flex-start"
+    | "center"
+    | "flex-end"
+    | "space-around"
+    | "space-between";
+  alignItems?:
+    | "flex-start"
+    | "center"
+    | "flex-end"
+    | "space-around"
+    | "space-between";
   flexDirection?:
-    | '-moz-initial'
-    | 'inherit'
-    | 'initial'
-    | 'revert'
-    | 'unset'
-    | 'column'
-    | 'column-reverse'
-    | 'row'
-    | 'row-reverse';
+    | "-moz-initial"
+    | "inherit"
+    | "initial"
+    | "revert"
+    | "unset"
+    | "column"
+    | "column-reverse"
+    | "row"
+    | "row-reverse";
   children?: ReactNode;
 }
 
 const RsRow = ({ ...props }: RsRowProps) => {
-  const { justifyContent, alignItems, flexDirection, children } = props;
+  const {
+    justifyContent,
+    alignItems,
+    flexDirection,
+    children,
+    ...rest
+  } = props;
   return (
     <div
-      className='rs-row'
+      className="rs-row"
       style={{
         justifyContent: justifyContent,
         alignItems: alignItems,
         flexDirection: flexDirection,
       }}
+      {...rest}
     >
       {children}
     </div>

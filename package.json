@@ -18,13 +18,20 @@
     "node-sass": "^6.0.1",
     "react-color": "^2.19.3",
     "react-transition-group": "^4.4.2",
-    "typescript": "^3.9.10"
+    "typescript": "^3.9.10",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "react-scripts": "^4.0.3"
   },
   "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject",
     "storybook": "start-storybook -p 6006 -s public",
     "build-storybook": "build-storybook -s public",
     "clean": "rimraf dist",
-    "build": "rollup -c"
+    "buildPackage": "rollup -c"
   },
   "eslintConfig": {
     "extends": "react-app",
@@ -63,7 +70,7 @@
     "@storybook/addon-links": "^6.3.8",
     "@storybook/node-logger": "^6.3.8",
     "@storybook/preset-create-react-app": "^3.2.0",
-    "@storybook/react": "^6.3.8",
+    "@storybook/react": "^6.3.9",
     "@testing-library/jest-dom": "^4.2.4",
     "@testing-library/react": "^9.5.0",
     "@testing-library/user-event": "^7.2.1",
@@ -80,10 +87,5 @@
     "rollup-plugin-peer-deps-external": "^2.2.4",
     "rollup-plugin-postcss": "^4.0.1",
     "tslib": "^2.3.1"
-  },
-  "peerDependencies": {
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "react-scripts": "^4.0.3"
   }
 }
