@@ -8,12 +8,7 @@ interface RsRowProps {
     | "flex-end"
     | "space-around"
     | "space-between";
-  alignItems?:
-    | "flex-start"
-    | "center"
-    | "flex-end"
-    | "space-around"
-    | "space-between";
+  alignItems?: "flex-start" | "flex-end" | "center" | "baseline" | "stretch";
   flexDirection?:
     | "-moz-initial"
     | "inherit"
