@@ -14,6 +14,7 @@ import { RsSidebar, RsSidebarGroup, RsSidebarItem } from "./rsSidebar";
 import { RsSwitch } from "./rsSwitch";
 import { RsTable, RsTableTd, RsTableTh, RsTableTr } from "./rsTable";
 import { RsTooltip } from "./rsTooltip";
+import { RsRow, RsCol } from "./rsLayout/rsGrid";
 
 export {
   RsAlert,
@@ -41,4 +42,6 @@ export {
   RsTableTh,
   RsTableTr,
   RsTooltip,
+  RsRow,
+  RsCol,
 };
