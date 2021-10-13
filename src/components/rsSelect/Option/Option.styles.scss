@@ -1,4 +1,4 @@
-@import '../../../styles/mixins';
+@import "../../../styles/mixins";
 
 .rs-select__option {
   border: 0px;
@@ -7,7 +7,7 @@
   text-align: left;
   background: transparent;
   transition: all 0.25s ease;
-  color: rs-color('text');
+  color: rs-color("text");
   border-radius: 5px;
   box-shadow: 0px 0px 0px 0px rgba(0, 0, 0, rs-var(shadow-opacity));
   margin: 2px 0px;
@@ -39,7 +39,7 @@
     }
 
     &.isHover {
-      background: rs-color('gray-2') !important;
+      background: rs-color("gray-2") !important;
     }
 
     &:disabled {
@@ -73,19 +73,19 @@
   }
 
   &.isHover {
-    background: rs-color('gray-2');
+    background: rs-color("gray-2");
   }
 
   &.activeOption {
-    background: rs-color('color', 0.05);
-    color: rs-color('color', 1);
+    background: rs-color("color", 0.05);
+    color: rs-color("color", 1);
     pointer-events: none;
   }
 
   // &:last-child
   //   border-radius: 0px 0px 12px 12px
   &:hover:not(:disabled) {
-    color: rs-color('color');
+    color: rs-color("color");
     padding-left: 14px;
   }
 }

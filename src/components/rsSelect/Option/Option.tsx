@@ -1,8 +1,8 @@
-import React from 'react';
-import classnames from 'classnames';
-import RsCheckbox from '../../rsCheckbox/Base/RsCheckbox';
+import React from "react";
+import classnames from "classnames";
+import RsCheckbox from "../../rsCheckbox/Base/RsCheckbox";
 
-import './Option.styles.scss';
+import "./Option.styles.scss";
 
 const RsSelectOption = ({ ...props }) => {
   const {
@@ -11,25 +11,25 @@ const RsSelectOption = ({ ...props }) => {
     isMultiple,
     hiddenOption,
     children,
-    onClick,
     disabled,
-    checkboxColor
+    checkboxColor,
+    ...rest
   } = props;
   const optionButtonClasses = classnames(
-    'rs-select__option',
+    "rs-select__option",
     { activeOption: isActive },
     { isHover: isHover },
     { isMultiple: isMultiple },
     { hiddenOption: hiddenOption }
   );
   return (
-    <button
-      className={optionButtonClasses}
-      onClick={onClick}
-      disabled={disabled}
-    >
+    <button className={optionButtonClasses} disabled={disabled} {...rest}>
       {isMultiple ? (
-        <RsCheckbox color={checkboxColor} checked={isActive}>
+        <RsCheckbox
+          color={checkboxColor}
+          checked={isActive}
+          onChange={() => {}}
+        >
           {children}
         </RsCheckbox>
       ) : null}

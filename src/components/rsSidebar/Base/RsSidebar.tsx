@@ -55,6 +55,7 @@ const RsSidebar = ({ ...props }: RsSidebarProps) => {
     } else if (el && !reduceInternal) {
       el.style.width = staticWidth;
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [reduceInternal]);
 
   const SidebarContentClasses = classnames(
